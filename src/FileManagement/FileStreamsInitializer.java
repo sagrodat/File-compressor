@@ -3,15 +3,16 @@ package FileManagement;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 public class FileStreamsInitializer {
-    private FileInputStream fis;
-    private FileOutputStream fos;
+    private RandomAccessFile inputFile;
+    private RandomAccessFile outputFile;
     public FileStreamsInitializer( String inputPath, String outputPath)
     {
         try
         {
-            this.fis = new FileInputStream(inputPath);
+            this.inputFile = new RandomAccessFile(inputPath,"r");
         }
         catch (IOException e)
         {
@@ -19,7 +20,7 @@ public class FileStreamsInitializer {
         }
         try
         {
-            this.fos = new FileOutputStream(outputPath);
+            this.outputFile = new RandomAccessFile(outputPath,"rw");
         }
         catch (IOException e)
         {
@@ -27,12 +28,12 @@ public class FileStreamsInitializer {
         }
     }
 
-    public FileInputStream getFileInputStream() {
-        return fis;
+    public RandomAccessFile getFileInputStream() {
+        return inputFile;
     }
 
-    public FileOutputStream getFileOutputStream() {
-        return fos;
+    public RandomAccessFile getFileOutputStream() {
+        return outputFile;
     }
 
 }

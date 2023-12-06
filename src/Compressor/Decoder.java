@@ -1,32 +1,68 @@
 package Compressor;
 
 import FileManagement.FileStreamsInitializer;
-import Tree.HuffTree;
 import Tree.Node;
 import Utility.Constants;
 import Utility.Directions;
-import org.w3c.dom.ls.LSOutput;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
 
 public class Decoder {
     Node root;
-    FileInputStream reader;
-    FileOutputStream writer;
+    RandomAccessFile reader;
+    RandomAccessFile writer;
     String [] codes;
+    private ReadBuffer readBuffer;
+    private ArrayList<Integer> decodedContent;
     //CONSTRUCTORS
     public Decoder(String inputPath, String outputPath)
     {
         FileStreamsInitializer fsi = new FileStreamsInitializer(inputPath,  outputPath);
         this.reader = fsi.getFileInputStream();
         this.writer = fsi.getFileOutputStream();
-
-        restoreTreeFromBinaryData();
+        //createCodes();
     }
+    public void decodeContent()
+    {
+        this.readBuffer = new ReadBuffer();
+        restoreTreeFromBinaryData();
+        restoreContentFromBinaryData();
+    }
+
+
+    private void restoreContentFromBinaryData() {
+        int bitsToReadFromLastByte = readBuffer.getNextByte();
+        boolean skippedEmptyBits = false;
+
+        this.decodedContent = new ArrayList<>();
+        int bit;
+        Node tmp = root;
+        while((bit = readBuffer.getNextBit()) !=-1)
+        {
+            if(readBuffer.readingLastByte() && !skippedEmptyBits)
+            {
+                readBuffer.skipBits(7 - bitsToReadFromLastByte);
+                skippedEmptyBits = true;
+                continue;
+            }
+
+            if(bit == 0)
+                tmp = tmp.getLeft();
+            else if(bit == 1)
+                tmp = tmp.getRight();
+
+            if(tmp.getLetter() != -1)
+            {
+                decodedContent.add(tmp.getLetter());
+                tmp = root;
+            }
+        }
+    }
+
     //WORKERS
-    private Node createNewNode( Buffer buf)
+    private Node createNewNode(ReadBuffer buf)
     {
         int nodeType = buf.getNextBit();
         int letter = nodeType == 0 ? -1 : buf.getNextByte();
@@ -34,7 +70,7 @@ public class Decoder {
     }
     private Node linkNewNode(Node parentNode, Node childNode, int direction)
     {
-        if(parentNode == null) // root node
+        if(parentNode == null) // linking root (starting a tree)
         {
             parentNode = childNode;
             this.root = parentNode;
@@ -49,27 +85,47 @@ public class Decoder {
         return parentNode;
     }
 
-    private void traverseToRebuildTree(Node node, int direction, Buffer buf)
+    private void traverseToRebuildTree(Node node, int direction)
     {
-        Node newNode = null;
-        newNode = createNewNode(buf);
+        Node newNode = createNewNode(readBuffer);
         node = linkNewNode(node,newNode,direction);
         if(newNode.getLetter() != -1)
             return;
 
-        traverseToRebuildTree(newNode,Directions.LEFT,buf);
-        traverseToRebuildTree(newNode,Directions.RIGHT,buf);
+        traverseToRebuildTree(newNode,Directions.LEFT);
+        traverseToRebuildTree(newNode,Directions.RIGHT);
     }
     private void restoreTreeFromBinaryData() {
-        Buffer buf = new Buffer();
-        traverseToRebuildTree(null, Directions.NONE, buf);
+
+        traverseToRebuildTree(null, Directions.ROOT);
     }
 
+    public void createCodes()
+    {
+        CodeCreator codeCreator = new CodeCreator(root);
+        codeCreator.createCodes();
+        this.codes = codeCreator.getCodes();
+    }
 
-    private class Buffer{
+    public void saveDecodedContentToFile()
+    {
+        for(Integer value : decodedContent)
+        {
+            try{
+                writer.write(value);
+            }
+            catch(IOException e)
+            {
+                System.err.println("Error when saving to output file!");
+            }
+        }
+    }
+
+    // PRIVATE CLASSES
+    private class ReadBuffer {
         int value;
         int bitsUsed;
-        public Buffer()
+        public ReadBuffer()
         {
             loadNextValue();
         }
@@ -114,32 +170,36 @@ public class Decoder {
             }
             return byteValue;
         }
-    }
-
-
-    private void traverseTreeToCreateCodes(Node node, String currentCode)
-    {
-        if(node == null)
-            return;
-        if(node.getLetter() != -1)
+        public boolean readingLastByte()
         {
-            codes[node.getLetter()] = currentCode;
+            boolean result = false;
+            try{
+                result = (reader.getFilePointer() == reader.length());
+            }
+            catch(IOException e)
+            {
+                System.err.println("Error while handling the file!");
+            }
+            return result;
         }
-        traverseTreeToCreateCodes(node.getLeft(), currentCode + "0");
-        traverseTreeToCreateCodes(node.getRight(), currentCode + "1");
-    }
 
-    public void createCodes()
-    {
-        this.codes = new String[256];
-        traverseTreeToCreateCodes(root, "");
+        public void skipBits(int toSkip) {
+            for(int i = 0; i < toSkip ; i++)
+                getNextBit();
+        }
     }
-
     //PRINTERS
 
+    public void printDecodedContent()
+    {
+        for(int i = 0 ; i < decodedContent.size(); i++)
+        {
+            System.out.print((char)(int)decodedContent.get(i));
+        }
+    }
     public void printInputFileAsBits()
     {
-        Buffer buf = new Buffer();
+        ReadBuffer buf = new ReadBuffer();
         int tmp;
         int cnt = 0;
         while((tmp = buf.getNextBit()) != -1)
@@ -154,7 +214,7 @@ public class Decoder {
 
     public void printInputFileAsTreeInfo()
     {
-        Buffer buf = new Buffer();
+        ReadBuffer buf = new ReadBuffer();
         int tmp;
         while((tmp = buf.getNextBit()) != -1)
         {

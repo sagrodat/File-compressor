@@ -1,12 +1,6 @@
 import Compressor.Decoder;
 import Compressor.Encoder;
-import FileManagement.FileStreamsInitializer;
-import Tree.Node;
-import Utility.Constants;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
+import Tests.HuffmanTests;
 // to do
 // make creating codes from String independent from decoder and encoder ( code duplication )
 
@@ -14,42 +8,35 @@ public class Main {
     public static void main(String[] args) {
         String inputFilePath = "draw.png";
         String outputFilePath = "output.txt";
+        String decodedInputFilePath = "decodedInput.txt";
+
         Encoder encoder = new Encoder(inputFilePath,outputFilePath);
-        encoder.createCodes();
-        encoder.printCodes();
-        String [] before = encoder.getCodes();
+        encoder.encodeContent();
+        encoder.saveEncodedContentToFile();
 
-        ArrayList<Integer> data = encoder.getTree().getBinaryTreeData();
-        FileStreamsInitializer fis = new FileStreamsInitializer("",outputFilePath);
-        for(Integer el : data)
-        {
-            try
-            {
-                fis.getFileOutputStream().write(el);
+       /* try{
+            RandomAccessFile x = new RandomAccessFile(outputFilePath,"rw");
+            int tmp;
+            try {
+                while ((tmp = x.read()) != -1) {
+                    System.out.println(tmp);
+                }
             }
-            catch(IOException e)
+            catch (IOException e)
             {
-                e.printStackTrace();
+                System.err.println("Failed to read from file!");
             }
         }
-
-
-        System.out.println();
-
-        Decoder decoder = new Decoder("output.txt","");
-        decoder.createCodes();
-        decoder.printCodes();
-        String [] after = decoder.getCodes();
-
-
-        for(int i = 0 ;i  <Constants.MAX_UNIQUE ; i++)
+        catch (IOException e)
         {
-            if(before[i] == null && after[i] == null)
-                continue;
+            e.printStackTrace();
+        }*/
 
-            if(before[i].compareTo(after[i]) != 0)
-                System.out.println("TEST FAILED!");
-        }
+        Decoder decoder = new Decoder(outputFilePath,decodedInputFilePath);
+        decoder.decodeContent();
+        decoder.saveDecodedContentToFile();
 
+        HuffmanTests huffmanTests = new HuffmanTests();
+        System.out.println(huffmanTests.testIfFilesAreEqual(inputFilePath,decodedInputFilePath));
     }
 }

@@ -1,6 +1,6 @@
 package Tree;
 
-import Utility.MinHeap;
+import Utility.SaveBuffer;
 
 import java.util.ArrayList;
 
@@ -8,105 +8,49 @@ import static Utility.Constants.MAX_UNIQUE;
 
 
 public class HuffTree {
+    private Node root;
+    private Node [] nodes;
+    private int numberOfNodes;
+    private int [] occurrences;
+    private MinHeap heap;
 
-
-
-
-    Node root;
-    Node [] nodes;
-    int nodeIterator;
-    int [] occurrences;
-    MinHeap heap;
-    ArrayList<Integer> binaryData;
-
+    private SaveBuffer saveBuffer;
 
 
     //CONSTRUCTORS
     public HuffTree(int [] occurrences)
     {
         this.occurrences = occurrences;
-        this.nodeIterator = 0;
         this.nodes = new Node[MAX_UNIQUE * 2];
+
         createLeafNodes();
-        this.heap = new MinHeap(this.nodes);
+        this.heap = new MinHeap(this.nodes, this.numberOfNodes);
         createOtherNodes();
-        createTreeBinaryData();
+
     }
 
-    //PRIVATE CLASSES
-    private class Buffer {
-        int val;
-        int bitsUsed;
-        public Buffer()
-        {
-            this.val = 0;
-            this.bitsUsed = 0;
-        }
-        public void addZero()
-        {
 
-            if(isBufferFull()) {saveValAndResetBuffer();}
-            val = val << 1;
-            bitsUsed++;
-        }
-        public void addOne()
-        {
-
-            if(isBufferFull()) {saveValAndResetBuffer();}
-            val = val << 1;
-            val+=1;
-            bitsUsed++;
-        }
-        public void addLetter(int letter)
-        {
-
-            for(int i = 0; i < 8 ; i++)
-            {
-
-                if(isBufferFull()) {saveValAndResetBuffer();}
-                val = val << 1;
-                val += ( (letter >> (7-i)) & 1 );
-                bitsUsed++;
-            }
-        }
-        private boolean isBufferFull() {   return bitsUsed == 8; }
-        private void saveValAndResetBuffer() {
-            binaryData.add(val);
-            bitsUsed = 0;
-            val = 0;
-        }
-        public void saveLeftoverValue() {
-            int unusedBits = 8 - bitsUsed;
-            for(int i = 0; i < unusedBits ; i++)
-            {
-                val = val << 1;
-            }
-            saveValAndResetBuffer();
-        }
-    }
 
     //WORKERS
     public void createTreeBinaryData() {
-        this.binaryData = new ArrayList<Integer>();
-        Buffer buf = new Buffer();
-        traverseTreeToCreateTreeBinaryData(this.root,buf);
-        buf.saveLeftoverValue();
+        this.saveBuffer = new SaveBuffer();
+        traverseTreeToCreateTreeBinaryData(this.root);
     }
 
-    private void traverseTreeToCreateTreeBinaryData(Node node, Buffer buf) {
+    private void traverseTreeToCreateTreeBinaryData(Node node) {
         if(node == null)
             return;
         if(node.getLetter() == -1)
         {
-            buf.addZero();
+            saveBuffer.addZero();
         }
         else
         {
-            buf.addOne();
-            buf.addLetter(node.getLetter());
+            saveBuffer.addOne();
+            saveBuffer.addLetter(node.getLetter());
         }
-        traverseTreeToCreateTreeBinaryData(node.getLeft(),buf);
-        traverseTreeToCreateTreeBinaryData(node.getRight(),buf);
+        traverseTreeToCreateTreeBinaryData(node.getLeft());
+        traverseTreeToCreateTreeBinaryData(node.getRight());
     }
 
     private void createLeafNodes() {
@@ -115,7 +59,7 @@ public class HuffTree {
             if(occurrences[i] != 0)
             {
                 Node node = new Node(null,null,i,occurrences[i]);
-                this.nodes[nodeIterator++] = node;
+                this.nodes[numberOfNodes++] = node;
             }
         }
     }
@@ -128,6 +72,7 @@ public class HuffTree {
             Node childB = heap.extractMin();
             Node parent = new Node(childA,childB,-1,childA.getOccurrences() + childB.getOccurrences());
             heap.insertNode(parent);
+            numberOfNodes++;
         }
         this.root = heap.getRoot();
     }
@@ -135,7 +80,7 @@ public class HuffTree {
     //PRINTERS
     public void printTreeNodes()
     {
-        for(int i = 0; i < nodeIterator ; i++)
+        for(int i = 0; i < numberOfNodes; i++)
         {
             System.out.println((char)this.nodes[i].getLetter() + " -> " + this.nodes[i].getOccurrences());
         }
@@ -157,9 +102,9 @@ public class HuffTree {
     }
 
     //SETTERS AND GETTERS
-    public ArrayList<Integer> getBinaryTreeData() { return this.binaryData; }
     public Node getRoot() { return this.root; }
     public Node[] getNodes() { return this.nodes; }
     public MinHeap getHeap() { return this.heap; }
+    public SaveBuffer getSaveBuffer() {return this.saveBuffer;}
 
 }

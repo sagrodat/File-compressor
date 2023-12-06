@@ -1,32 +1,21 @@
-package Utility;
+package Tree;
 
 import Tree.Node;
 
 public class MinHeap {
 
-    int trueSizeOfNodes;
     int heapSize;
     Node [] nodes;
 
     //CONSTRUCTORS
-    public MinHeap(Node [] nodes)
+    public MinHeap(Node [] nodes, int numberOfNodes)
     {
         this.nodes = nodes;
-        calculateTrueSizeOfNodes();
-        this.heapSize = trueSizeOfNodes;
+        this.heapSize = numberOfNodes;
         buildHeap();
     }
 
     //WORKERS
-    private void calculateTrueSizeOfNodes()
-    {
-        int size = 0;
-        for(int i = 0; i < nodes.length ; i++)
-            if(nodes[i] != null)
-                size++;
-
-        this.trueSizeOfNodes = size;
-    }
     private void buildHeap() {
         int n = heapSize;
 

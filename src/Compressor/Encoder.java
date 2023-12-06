@@ -1,37 +1,112 @@
 package Compressor;
 
 import Tree.HuffTree;
-import Tree.Node;
 import Utility.Constants;
 import FileManagement.FileStreamsInitializer;
+import Utility.SaveBuffer;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 public class Encoder {
 
-    FileInputStream reader;
-    FileOutputStream writer;
-    int [] occurrences;
-    HuffTree tree;
-    String [] codes;
+    private RandomAccessFile reader;
+    private RandomAccessFile writer;
+    private int [] occurrences;
+    private HuffTree tree;
+    private String [] codes;
+
+    private SaveBuffer saveBuffer;
 
 
     //CONSTRUCTORS
     public Encoder(String inputPath, String outputPath)
     {
-        FileStreamsInitializer fsi = new FileStreamsInitializer(inputPath, outputPath);
-        this.reader = fsi.getFileInputStream();
-        this.writer = fsi.getFileOutputStream();
-        countOccurrences();
-        createHuffManTree();
+        FileStreamsInitializer fileStreamsInitializer = new FileStreamsInitializer(inputPath, outputPath);
+        this.reader = fileStreamsInitializer.getFileInputStream();
+        this.writer = fileStreamsInitializer.getFileOutputStream();
     }
 
+    public void encodeContent()
+    {
+        countOccurrences();
+        createHuffManTree();
+        createCodes();
+    }
 
+    public void saveEncodedContentToFile() {
+        tree.createTreeBinaryData();
+        createContentBinaryData();
 
+        for(Integer value : saveBuffer.getBinaryData())
+        {
+            try
+            {
+                writer.write(value);
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    private int countBitsToReadFromLastByte()
+    {
+        int totalCodeLen = 0;
+        for(int i = 0 ; i < occurrences.length ; i++)
+        {
+            if(codes[i] == null)
+                continue;
+
+            totalCodeLen += occurrences[i] * codes[i].length();
+        }
+        return totalCodeLen%8 != 0 ? totalCodeLen%8 : 0;
+    }
+
+    private void createContentBinaryData()
+    {
+        this.saveBuffer = tree.getSaveBuffer();
+        try {
+            reader.seek(0);
+        }
+        catch(IOException e)
+        {
+            System.err.println("Error when accessing input file!");
+        }
+
+        saveBuffer.addLetter(countBitsToReadFromLastByte() - (8-saveBuffer.getBitsUsed()));
+
+        int tmp;
+        try {
+            while ((tmp = this.reader.read()) != -1) {
+                saveBuffer.addCode(codes[tmp]);
+            }
+        }
+        catch (IOException e)
+        {
+            System.err.println("Failed to read from file!");
+        }
+        saveBuffer.saveLeftoverValue();
+
+    }
     //WORKERS
+    private void saveBinaryTreeDataToFile()
+    {
+        SaveBuffer saveBuffer = tree.getSaveBuffer();
+        for(int i = 0; i < saveBuffer.getBinaryData().size() ; i++)
+        {
+            try
+            {
+                writer.write(saveBuffer.getBinaryData().get(i));
+            }
+            catch(IOException e)
+            {
+                System.err.println("Blad przy zapisie do pliku!");
+            }
+        }
+    }
+
 
     private void createHuffManTree() {
         this.tree = new HuffTree(this.occurrences);
@@ -52,22 +127,11 @@ public class Encoder {
         }
     }
 
-    private void traverseTreeToCreateCodes(Node node, String currentCode)
-    {
-        if(node == null)
-            return;
-        if(node.getLetter() != -1)
-        {
-            this.codes[node.getLetter()] = currentCode;
-        }
-        traverseTreeToCreateCodes(node.getLeft(), currentCode + "0");
-        traverseTreeToCreateCodes(node.getRight(), currentCode + "1");
-    }
-
     public void createCodes()
     {
-        this.codes = new String[256];
-        traverseTreeToCreateCodes(tree.getRoot(), "");
+        CodeCreator codeCreator = new CodeCreator(tree.getRoot());
+        codeCreator.createCodes();
+        this.codes = codeCreator.getCodes();
     }
 
     //PRINTERS
