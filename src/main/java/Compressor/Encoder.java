@@ -1,17 +1,14 @@
 package Compressor;
 
+import FileManagement.FileManager;
 import Tree.HuffTree;
 import Utility.Constants;
-import FileManagement.FileStreamsInitializer;
 import Utility.SaveBuffer;
-
-import java.io.IOException;
-import java.io.RandomAccessFile;
 
 public class Encoder {
 
-    private RandomAccessFile reader;
-    private RandomAccessFile writer;
+    private FileManager reader;
+    private FileManager writer;
     private int [] occurrences;
     private HuffTree tree;
     private String [] codes;
@@ -20,38 +17,30 @@ public class Encoder {
 
 
     //CONSTRUCTORS
-    public Encoder(String inputPath, String outputPath)
-    {
-        FileStreamsInitializer fileStreamsInitializer = new FileStreamsInitializer(inputPath, outputPath);
-        this.reader = fileStreamsInitializer.getFileInputStream();
-        this.writer = fileStreamsInitializer.getFileOutputStream();
-    }
+    public Encoder(){}
 
-    public void encodeContent()
+    public void encodeContent(String inputPath)
     {
+        this.reader = new FileManager(inputPath,"r");
         countOccurrences();
         createHuffManTree();
         createCodes();
     }
 
-    public void saveEncodedContentToFile() {
+    public void saveEncodedContentToFile(String outputPath) {
+        this.writer = new FileManager(outputPath,"rw");
         tree.createTreeBinaryData();
         createContentBinaryData();
 
         for(Integer value : saveBuffer.getBinaryData())
         {
-            try
-            {
-                writer.write(value);
-            }
-            catch(IOException e)
-            {
-                e.printStackTrace();
-            }
+            writer.write(value);
         }
+        writer.close();
     }
 
-    private int countBitsToReadFromLastByte()
+    //change to private!!!
+    public int countBitsToReadFromLastByte()
     {
         int totalCodeLen = 0;
         for(int i = 0 ; i < occurrences.length ; i++)
@@ -61,32 +50,22 @@ public class Encoder {
 
             totalCodeLen += occurrences[i] * codes[i].length();
         }
-        return totalCodeLen%8 != 0 ? totalCodeLen%8 : 0;
+        int atBit = (totalCodeLen + this.saveBuffer.getBitsUsed())%8;
+        return atBit;
     }
 
     private void createContentBinaryData()
     {
         this.saveBuffer = tree.getSaveBuffer();
-        try {
-            reader.seek(0);
-        }
-        catch(IOException e)
-        {
-            System.err.println("Error when accessing input file!");
-        }
+        reader.seek(0);
 
-        saveBuffer.addLetter(countBitsToReadFromLastByte() - (8-saveBuffer.getBitsUsed()));
+        saveBuffer.addLetter(countBitsToReadFromLastByte());
 
         int tmp;
-        try {
-            while ((tmp = this.reader.read()) != -1) {
-                saveBuffer.addCode(codes[tmp]);
-            }
-        }
-        catch (IOException e)
-        {
-            System.err.println("Failed to read from file!");
-        }
+
+        while ((tmp = this.reader.read()) != -1)
+            saveBuffer.addCode(codes[tmp]);
+
         saveBuffer.saveLeftoverValue();
 
     }
@@ -95,16 +74,7 @@ public class Encoder {
     {
         SaveBuffer saveBuffer = tree.getSaveBuffer();
         for(int i = 0; i < saveBuffer.getBinaryData().size() ; i++)
-        {
-            try
-            {
-                writer.write(saveBuffer.getBinaryData().get(i));
-            }
-            catch(IOException e)
-            {
-                System.err.println("Blad przy zapisie do pliku!");
-            }
-        }
+            writer.write(saveBuffer.getBinaryData().get(i));
     }
 
 
@@ -116,15 +86,9 @@ public class Encoder {
     {
         this.occurrences = new int[Constants.MAX_UNIQUE];
         int tmp;
-        try {
-            while ((tmp = this.reader.read()) != -1) {
-                occurrences[tmp]++;
-            }
-        }
-        catch (IOException e)
-        {
-            System.err.println("Failed to read from file!");
-        }
+
+        while ((tmp = this.reader.read()) != -1)
+            occurrences[tmp]++;
     }
 
     public void createCodes()

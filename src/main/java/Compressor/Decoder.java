@@ -1,31 +1,26 @@
 package Compressor;
 
-import FileManagement.FileStreamsInitializer;
+import FileManagement.FileManager;
 import Tree.Node;
 import Utility.Constants;
 import Utility.Directions;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class Decoder {
     Node root;
-    RandomAccessFile reader;
-    RandomAccessFile writer;
+    FileManager reader;
+    FileManager writer;
     String [] codes;
     private ReadBuffer readBuffer;
     private ArrayList<Integer> decodedContent;
     //CONSTRUCTORS
-    public Decoder(String inputPath, String outputPath)
+    public Decoder()
     {
-        FileStreamsInitializer fsi = new FileStreamsInitializer(inputPath,  outputPath);
-        this.reader = fsi.getFileInputStream();
-        this.writer = fsi.getFileOutputStream();
-        //createCodes();
     }
-    public void decodeContent()
+    public void decodeContent(String inputPath)
     {
+        this.reader = new FileManager(inputPath,"r");
         this.readBuffer = new ReadBuffer();
         restoreTreeFromBinaryData();
         restoreContentFromBinaryData();
@@ -41,7 +36,7 @@ public class Decoder {
         Node tmp = root;
         while((bit = readBuffer.getNextBit()) !=-1)
         {
-            if(readBuffer.readingLastByte() && !skippedEmptyBits)
+            if(readBuffer.isReadingLastByte() && !skippedEmptyBits)
             {
                 readBuffer.skipBits(7 - bitsToReadFromLastByte);
                 skippedEmptyBits = true;
@@ -96,7 +91,6 @@ public class Decoder {
         traverseToRebuildTree(newNode,Directions.RIGHT);
     }
     private void restoreTreeFromBinaryData() {
-
         traverseToRebuildTree(null, Directions.ROOT);
     }
 
@@ -107,18 +101,11 @@ public class Decoder {
         this.codes = codeCreator.getCodes();
     }
 
-    public void saveDecodedContentToFile()
+    public void saveDecodedContentToFile(String outputPath)
     {
+        this.writer = new FileManager(outputPath,"rw");
         for(Integer value : decodedContent)
-        {
-            try{
                 writer.write(value);
-            }
-            catch(IOException e)
-            {
-                System.err.println("Error when saving to output file!");
-            }
-        }
     }
 
     // PRIVATE CLASSES
@@ -133,15 +120,8 @@ public class Decoder {
         private boolean endOfFileReached(){ return value == -1; }
         private void loadNextValue()
         {
-            try
-            {
-                this.value = reader.read();
-                bitsUsed = 0;
-            }
-            catch (IOException e)
-            {
-                System.err.println("Failed to read from file!");
-            }
+            this.value = reader.read();
+            bitsUsed = 0;
         }
         public int getNextBit()
         {
@@ -151,7 +131,6 @@ public class Decoder {
 
             if(endOfFileReached())
                 return -1;
-
 
             int bitValue = (this.value >> (7 - bitsUsed))&1;
             bitsUsed++;
@@ -170,17 +149,9 @@ public class Decoder {
             }
             return byteValue;
         }
-        public boolean readingLastByte()
+        public boolean isReadingLastByte()
         {
-            boolean result = false;
-            try{
-                result = (reader.getFilePointer() == reader.length());
-            }
-            catch(IOException e)
-            {
-                System.err.println("Error while handling the file!");
-            }
-            return result;
+            return (reader.getFilePointerPosition() == reader.length());
         }
 
         public void skipBits(int toSkip) {
@@ -227,6 +198,8 @@ public class Decoder {
 
     public void printCodes()
     {
+        if(codes == null)
+            createCodes();
         for(int i = 0 ; i < Constants.MAX_UNIQUE ;i++)
         {
             if(codes[i] != null)
