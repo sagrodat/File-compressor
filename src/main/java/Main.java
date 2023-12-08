@@ -1,19 +1,29 @@
 import Compressor.Decoder;
 import Compressor.Encoder;
-import FileManagement.FileManager;
-import Tests.HuffmanTests;
 // to do
-// make readbuffer a seperate class
-// fix tests
-
+// make it so that the extension is read from the compresed file
 public class Main {
     public static void main(String[] args) {
         String inputFilePath = "TestFiles\\romeo.txt";
-        String outputFilePath = "TestFiles\\output.txt";
-        String decodedInputFilePath = "TestFiles\\decodedInput.txt";
+        String outputFilePath = "TestFiles\\output.bin";
+        String decodedInputFilePath = "TestFiles\\romeoxd.txt";
+
+        //przyklad korzystania
+        Encoder encoder = new Encoder();
+        encoder.encodeContentAndSaveToFile(inputFilePath, outputFilePath);
+
+        encoder.printCodes();
+
+        Decoder decoder = new Decoder();
+        decoder.decodeContentAndSaveToFile(outputFilePath,decodedInputFilePath);
+
+        decoder.printCodes();
 
 
-        /*Encoder encoder = new Encoder();
+
+        //rozne testy
+        /*
+        Encoder encoder = new Encoder();
         encoder.encodeContent("TestFiles\\romeo.txt");
         encoder.saveEncodedContentToFile("TestFiles\\romeoTEST.txt");
 
@@ -25,7 +35,7 @@ public class Main {
         decoder.saveDecodedContentToFile("TestFiles\\romeoDECODED.txt");
 
         decoder.decodeContent("TestFiles\\testTEST.txt");
-        decoder.saveDecodedContentToFile("TestFiles\\testDECODED.txt");*/
+        decoder.saveDecodedContentToFile("TestFiles\\testDECODED.txt"); */
 
 
         //////////////////////

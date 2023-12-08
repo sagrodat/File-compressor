@@ -5,8 +5,10 @@ import java.io.RandomAccessFile;
 
 public class FileManager {
     private RandomAccessFile randomAccessFile;
+
     public FileManager(String filePath, String mode)
     {
+
         try
         {
             this.randomAccessFile = new RandomAccessFile(filePath,mode);

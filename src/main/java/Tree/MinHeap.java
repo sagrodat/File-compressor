@@ -4,8 +4,8 @@ import Tree.Node;
 
 public class MinHeap {
 
-    int heapSize;
-    Node [] nodes;
+    private int heapSize;
+    private Node [] nodes;
 
     //CONSTRUCTORS
     public MinHeap(Node [] nodes, int numberOfNodes)
@@ -76,7 +76,11 @@ public class MinHeap {
             return null;
 
         swap(0,heapSize-1);
-        Node output = this.nodes[heapSize-1];
+        Node output = nodes[heapSize-1];
+
+        //testowe
+        nodes[heapSize-1] = null;
+
         heapSize--;
         heapifyDown(0,heapSize);
         return output;

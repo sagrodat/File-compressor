@@ -2,51 +2,57 @@ package Tests;
 
 import Compressor.Encoder;
 import Compressor.Decoder;
+import Compressor.Compressor;
 
+import FileManagement.FileInfoReader;
 import FileManagement.FileManager;
-import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 
 public class HuffmanTests {
     private String [] testFiles = {"TestFiles\\draw.png","TestFiles\\test.txt","TestFiles\\romeo.txt"};
-    private String outputFileName = "TestFiles\\output.bin";
-    private String decompressedFileName = "TestFiles\\actual.txt";
-
-    Encoder encoder;
-    Decoder decoder;
+    Compressor compressor;
     public HuffmanTests()
     {
-        this.encoder = new Encoder();
-        this.decoder = new Decoder();
+        this.compressor = new Compressor();
     }
 
     @Test
     public void shouldCorrectlyCompressAndDecompressFiles() {
+        boolean testStatus = true;
+        FileInfoReader fileInfoReader = new FileInfoReader();
 
-        File previousCompressedFile = new File(outputFileName);
-        previousCompressedFile.delete();
-        File previousDecompressedFile = new File(decompressedFileName);
-        previousDecompressedFile.delete();
+        for(String testFile : testFiles)
+        {
+            String outputFileName = fileInfoReader.getName(testFile) + "out." + fileInfoReader.getExtension(testFile);
+            compressor.compress(testFile,outputFileName);
+            String decompressedFileName = fileInfoReader.getName(testFile) + "decompressed." + fileInfoReader.getExtension(testFile);
+            compressor.decompress(outputFileName,decompressedFileName);
 
-        encoder.encodeContent(testFiles[1]);
-        encoder.saveEncodedContentToFile(outputFileName);
+            if(testStatus)
+                testStatus = areFilesIdentical(testFile,decompressedFileName);
 
-        decoder.decodeContent(outputFileName);
-        decoder.saveDecodedContentToFile(decompressedFileName);
 
-        Assert.assertEquals(true,areFilesIdentical(testFiles[1], decompressedFileName) );
+            File outputFile = new File(outputFileName);
+            outputFile.delete();
+            File decompressedFile = new File(decompressedFileName);
+            decompressedFile.delete();
+        }
+        Assert.assertEquals(true,testStatus );
     }
 
-    private boolean areFilesIdentical(String expectedFIlePath, String actualFilePath)
+    private boolean areFilesIdentical(String expectedFilePath, String actualFilePath)
     {
-        FileManager expectedFile = new FileManager(expectedFIlePath,"r");
-        FileManager actualFile = new FileManager(actualFilePath,"rw");
+        FileManager expectedFile = new FileManager(expectedFilePath,"r");
+        FileManager actualFile = new FileManager(actualFilePath,"r");
         if(expectedFile.length() != actualFile.length())
         {
             System.out.println(expectedFile.length() + " " +  actualFile.length());
+            closeFiles(actualFile,expectedFile);
             return false;
         }
 
@@ -57,11 +63,16 @@ public class HuffmanTests {
             if(actual != expected)
             {
                 System.out.println(actual + " " + expected);
+                closeFiles(actualFile,expectedFile);
                 return false;
             }
-
         }
-
+        closeFiles(actualFile,expectedFile);
         return true;
+    }
+    private void closeFiles(FileManager f1, FileManager f2)
+    {
+        f1.close();
+        f2.close();
     }
 }

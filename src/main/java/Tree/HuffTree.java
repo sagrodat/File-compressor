@@ -1,8 +1,6 @@
 package Tree;
 
-import Utility.SaveBuffer;
-
-import java.util.ArrayList;
+import FileManagement.BitSaver;
 
 import static Utility.Constants.MAX_UNIQUE;
 
@@ -14,26 +12,24 @@ public class HuffTree {
     private int [] occurrences;
     private MinHeap heap;
 
-    private SaveBuffer saveBuffer;
+    private BitSaver bitSaver;
 
 
     //CONSTRUCTORS
     public HuffTree(int [] occurrences)
     {
         this.occurrences = occurrences;
-        this.nodes = new Node[MAX_UNIQUE * 2];
-
+        this.nodes = new Node[MAX_UNIQUE];
         createLeafNodes();
         this.heap = new MinHeap(this.nodes, this.numberOfNodes);
         createOtherNodes();
-
     }
 
 
 
     //WORKERS
-    public void createTreeBinaryData() {
-        this.saveBuffer = new SaveBuffer();
+    public void createAndSaveTreeBinaryData(BitSaver bitSaver) {
+        this.bitSaver = bitSaver;
         traverseTreeToCreateTreeBinaryData(this.root);
     }
 
@@ -42,12 +38,12 @@ public class HuffTree {
             return;
         if(node.getLetter() == -1)
         {
-            saveBuffer.addZero();
+            bitSaver.addZero();
         }
         else
         {
-            saveBuffer.addOne();
-            saveBuffer.addLetter(node.getLetter());
+            bitSaver.addOne();
+            bitSaver.addLetter(node.getLetter());
         }
         traverseTreeToCreateTreeBinaryData(node.getLeft());
         traverseTreeToCreateTreeBinaryData(node.getRight());
@@ -105,6 +101,6 @@ public class HuffTree {
     public Node getRoot() { return this.root; }
     public Node[] getNodes() { return this.nodes; }
     public MinHeap getHeap() { return this.heap; }
-    public SaveBuffer getSaveBuffer() {return this.saveBuffer;}
+    public BitSaver getSaveBuffer() {return this.bitSaver;}
 
 }

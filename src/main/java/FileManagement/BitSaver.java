@@ -1,15 +1,15 @@
-package Utility;
+package FileManagement;
 
 import java.util.ArrayList;
 
-public class SaveBuffer {
+public class BitSaver {
 
-    private ArrayList<Integer> binaryData;
-    int val;
+    private FileManager writer;
+    private int val;
     private int bitsUsed;
-    public SaveBuffer()
+    public BitSaver(FileManager writer)
     {
-        this.binaryData = new ArrayList<>();
+        this.writer = writer;
         this.val = 0;
         this.bitsUsed = 0;
     }
@@ -26,11 +26,24 @@ public class SaveBuffer {
         val+=1;
         bitsUsed++;
     }
+    public void addLeastSignificantBits(int value, int numberOfBits)
+    {
+        int test = 0;
+        for(int i = 0; i < numberOfBits; i++)
+        {
+            if(isBufferFull()){saveValAndResetBuffer();}
+            val = val << 1;
+            val += ( (value >> (numberOfBits - i - 1) ) & 1);
+
+            test = test << 1;
+            test += ( (value >> (numberOfBits - i - 1) ) & 1);
+            bitsUsed++;
+        }
+    }
     public void addLetter(int letter)
     {
         for(int i = 0; i < 8 ; i++)
         {
-
             if(isBufferFull()) {saveValAndResetBuffer();}
             val = val << 1;
             val += ( (letter >> (7-i)) & 1 );
@@ -40,7 +53,8 @@ public class SaveBuffer {
     private boolean isBufferFull() {   return bitsUsed == 8; }
     private void saveValAndResetBuffer()
     {
-        binaryData.add(val);
+        //binaryData.add(val);
+        writer.write(val);
         bitsUsed = 0;
         val = 0;
     }
@@ -49,8 +63,6 @@ public class SaveBuffer {
     {
         saveValAndResetBuffer();
     }
-
-    public ArrayList<Integer> getBinaryData(){return this.binaryData;}
 
     public void addCode(String code) {
         for(int i = 0; i < code.length() ; i++)
@@ -62,5 +74,7 @@ public class SaveBuffer {
         }
     }
     public int getBitsUsed(){return this.bitsUsed;}
+
+    public void closeWriter(){writer.close();}
 
 }
