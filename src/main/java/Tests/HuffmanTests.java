@@ -44,13 +44,15 @@ public class HuffmanTests {
         {
             System.out.println("Testing file " + testFile);
             timer.start();
+
             String compressedFileName = fileInfoReader.getName(testFile);
             compressor.compress(testFile,compressedFileName);
-            String fullCompressedFileName = compressedFileName + "." + Constants.customExtension;
+            String fullCompressedFileName = compressedFileName + fileInfoReader.getExtension(testFile)+ Constants.customExtension;
+            System.out.println(fullCompressedFileName);
 
             String decompressedFileName = fileInfoReader.getName(testFile) + "decompressed";
-            compressor.decompress(compressedFileName + "." + Constants.customExtension ,decompressedFileName);
-            String fullDecompressedFileName = decompressedFileName + "." + fileInfoReader.getExtension(testFile);
+            compressor.decompress( fullCompressedFileName ,decompressedFileName);
+            String fullDecompressedFileName = decompressedFileName + fileInfoReader.getExtension(testFile);
 
             if(testPassed)
             {
@@ -70,7 +72,7 @@ public class HuffmanTests {
             File outputFile = new File(fullCompressedFileName);
             outputFile.delete();
             File decompressedFile = new File(fullDecompressedFileName);
-            decompressedFile.delete();
+           decompressedFile.delete();
         }
         Assert.assertEquals(true,testPassed );
     }

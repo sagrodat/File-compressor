@@ -24,7 +24,15 @@ public class CodeCreator {
     public void createCodes()
     {
         this.codes = new String[256];
-        traverseTreeToCreateCodes(root, "");
+
+        if(root.getLeft() == null && root.getRight() == null) //special case, tree consists of only one node
+        {
+            codes[root.getLetter()] = "0";
+        }
+        else
+        {
+            traverseTreeToCreateCodes(root, "");
+        }
     }
 
     public String [] getCodes(){return this.codes;}

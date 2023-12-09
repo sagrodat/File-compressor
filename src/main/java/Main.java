@@ -17,10 +17,10 @@ public class Main {
 */
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Sciezka pliku wejsciowego : ");
+        System.out.print("Input filepath : ");
         String inputFilePath = scanner.nextLine();
 
-        System.out.print("Sciezka pliku wyjsciowego : ");
+        System.out.print("Output filepath : ");
         String outputFilePath = scanner.nextLine();
 
         Compressor compressor = new Compressor();

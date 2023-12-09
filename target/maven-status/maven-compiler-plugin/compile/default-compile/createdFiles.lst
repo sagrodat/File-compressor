@@ -1,0 +1,16 @@
+FileManagement\BitReader.class
+Tree\HuffTree.class
+Utility\Constants.class
+Tests\HuffmanTests.class
+Utility\Timer.class
+Compressor\CodeCreator.class
+Compressor\Decoder.class
+Compressor\Compressor.class
+FileManagement\BitSaver.class
+Main.class
+Compressor\Encoder.class
+Utility\Directions.class
+FileManagement\FileManager.class
+FileManagement\FileInfoReader.class
+Tree\Node.class
+Tree\MinHeap.class

@@ -5,17 +5,19 @@ import java.io.RandomAccessFile;
 
 public class FileManager {
     private RandomAccessFile randomAccessFile;
+    private String filePath;
 
     public FileManager(String filePath, String mode)
     {
-
+        this.filePath = filePath;
         try
         {
             this.randomAccessFile = new RandomAccessFile(filePath,mode);
         }
         catch(IOException e)
         {
-            System.err.println("Error when opening file!");
+            System.err.println("Error when opening file \"" + filePath + "\"! Make sure the file exists and that you have the rights to access the file.");
+            System.exit(-1);
         }
 
     }
@@ -28,7 +30,8 @@ public class FileManager {
         }
         catch(IOException e)
         {
-            System.err.println("Error when writing to file!");
+            System.err.println("Error when writing to file \"" + filePath + "\"! Make sure you have the rights to write to the file.");
+            System.exit(-1);
         }
     }
 
@@ -41,7 +44,8 @@ public class FileManager {
         }
         catch(IOException e)
         {
-            System.err.println("Error when reading from file!");
+            System.err.println("Error when reading from file \"" + filePath + "\"! Make sure you have the rights to read from the file.");
+            System.exit(-1);
         }
         return value;
     }
@@ -53,7 +57,7 @@ public class FileManager {
         }
         catch(IOException e)
         {
-            System.err.println("Error when performing operations on file!");
+            handleDefaultFileOperationsException();
         }
     }
     public long length()
@@ -65,7 +69,7 @@ public class FileManager {
         }
         catch (IOException e)
         {
-            System.err.println("Error when performing operations on file!");
+            handleDefaultFileOperationsException();
         }
         return length;
 
@@ -80,7 +84,7 @@ public class FileManager {
         }
         catch (IOException e)
         {
-            System.err.println("Error when performing operations on file!");
+            handleDefaultFileOperationsException();
         }
         return position;
     }
@@ -93,8 +97,16 @@ public class FileManager {
         }
         catch (IOException e)
         {
-            System.err.println("Error when closing file!");
+            handleDefaultFileOperationsException();
         }
     }
+
+    private void handleDefaultFileOperationsException()
+    {
+        System.err.println("Error when closing file \"" + filePath + "\"! Make sure you have the rights to perform operations on the file.");
+        System.exit(-1);
+    }
+
     public RandomAccessFile getFileHandle(){return this.randomAccessFile;}
+    public String getFilePath(){return this.filePath;}
 }

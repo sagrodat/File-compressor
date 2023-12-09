@@ -1,5 +1,7 @@
 package FileManagement;
 
+import Utility.Constants;
+
 import java.io.File;
 
 public class FileInfoReader {
@@ -12,30 +14,47 @@ public class FileInfoReader {
     {
         int lastDotIndex = fileName.lastIndexOf(".");
         if(lastDotIndex == -1)
-            return null;
+            return "";
         String extension = new String();
         for(int i = lastDotIndex + 1; i < fileName.length(); i++)
             extension += fileName.charAt(i);
 
-        return extension;
+        return "." + extension;
     }
 
     public String getName(File file)
     {
         return cutOutExtension(file.getName());
     }
-    public String getName(String fileName) {return cutOutExtension(fileName);}
-    private String cutOutExtension(String fileName)
+    public String getName(String fullFileName) {return cutOutExtension(fullFileName);}
+    private String cutOutExtension(String fullFileName)
     {
-        String output = new String();
-        if( fileName.contains(".") )
+        if( fullFileName.contains(".") )
         {
-            for(int i = 0; i < fileName.lastIndexOf(".");  i++)
+            String output = new String();
+            for(int i = 0; i < fullFileName.lastIndexOf(".");  i++)
             {
-                output+=fileName.charAt(i);
+                output+=fullFileName.charAt(i);
+            }
+            return output;
+        }
+        else return fullFileName;
+    }
+
+    public boolean isCompressionTagPresent(String filePath)
+    {
+        FileManager fileManager = new FileManager(filePath,"r");
+        for(int i = 0 ; i < Constants.compressionTag.length(); i++)
+        {
+            int tmp = fileManager.read();
+            if(tmp != Constants.compressionTag.charAt(i))
+            {
+                fileManager.close();
+                return false;
             }
         }
-        return output;
+        fileManager.close();
+        return true;
     }
 
 }

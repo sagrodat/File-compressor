@@ -22,18 +22,24 @@ public class Decoder {
     {
         this.reader = new FileManager(inputPath,"r");
         this.bitReader = new BitReader(reader);
+        skipCompressionTag();
         restoreOriginalExtension();
         restoreOriginalTree();
         restoreAndSaveContent(addOriginalExtensionIfNotSpecified(outputPath));
+
     }
+
+    private void skipCompressionTag()
+    {
+        reader.seek(reader.getFilePointerPosition() + Constants.compressionTag.length());
+    }
+
 
     private String addOriginalExtensionIfNotSpecified(String path)
     {
-        //if given extension matches the one of the original file dont do anything
-        // if no extension or given doesnt match then add extnesion
         FileInfoReader fileInfoReader = new FileInfoReader();
         if(fileInfoReader.getExtension(path) == null || !fileInfoReader.getExtension(path).equals(originalFileExtension))
-            return path + "." + originalFileExtension;
+            return path  + originalFileExtension;
         else
             return path;
     }
@@ -78,19 +84,19 @@ public class Decoder {
                 skippedEmptyBits = true;
                 continue;
             }
-
-            if(bit == 0)
+            if(bit == 0 && tmp.getLeft() != null)
                 tmp = tmp.getLeft();
-            else if(bit == 1)
+            else if(bit == 1 && tmp.getRight() != null)
                 tmp = tmp.getRight();
 
             if(tmp.getLetter() != -1)
             {
-                //bitReader.getDecodedContent().add(tmp.getLetter());
                 writer.write(tmp.getLetter());
                 tmp = root;
             }
         }
+
+
         reader.close();
         writer.close();
     }
@@ -125,6 +131,7 @@ public class Decoder {
         parentNode = linkChildToParent(parentNode,childNode,direction);
         if(childNode.getLetter() != -1)
             return;
+
 
         traverseToRebuildTree(childNode,Directions.LEFT);
         traverseToRebuildTree(childNode,Directions.RIGHT);

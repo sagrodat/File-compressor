@@ -22,7 +22,10 @@ public class Compressor {
 
     public void performAction(String inputFilePath, String outputFilePath) {
         FileInfoReader fileInfoReader = new FileInfoReader();
-        if (fileInfoReader.getExtension(inputFilePath).equals(Constants.customExtension))
+        if (
+                fileInfoReader.getExtension(inputFilePath) != null
+                && fileInfoReader.getExtension(inputFilePath).equals(Constants.customExtension)
+                || fileInfoReader.isCompressionTagPresent(inputFilePath))
         {
             decompress(inputFilePath,outputFilePath);
         }

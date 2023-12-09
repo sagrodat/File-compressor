@@ -6,6 +6,8 @@ import Tree.HuffTree;
 import Utility.Constants;
 import FileManagement.BitSaver;
 
+import java.io.File;
+
 public class Encoder {
 
     private FileManager reader;
@@ -21,22 +23,52 @@ public class Encoder {
 
     //WORKERS
     public void encodeContentAndSaveToFile(String inputPath, String outputPath) {
+        this.reader = new FileManager(inputPath,"r");
+        validateFile();
         createTreeAndCodes(inputPath);
-
-        this.writer = new FileManager( addCompressionExtension(outputPath) ,"rw");
+        this.writer = new FileManager( createOutputFileName(inputPath, outputPath) ,"rw");
         this.bitSaver = new BitSaver(writer);
+
+        saveCompressionTag();
         saveOriginalExtension(inputPath);
         tree.createAndSaveTreeBinaryData(this.bitSaver);
         createAndSaveContentBinaryData();
+
         writer.close();
         reader.close();
     }
+
+    private void validateFile()
+    {
+        if(reader.length() == 0)
+        {
+            System.err.println("Can't compress, input file is empty!");
+            System.exit(-1);
+        }
+    }
+
+    private void saveCompressionTag()
+    {
+        for(int i = 0; i < Constants.compressionTag.length() ; i++)
+            writer.write(Constants.compressionTag.charAt(i));
+    }
+
+    private String createOutputFileName(String inputFilePath, String outputFilePath)
+    {
+        FileInfoReader fileInfoReader = new FileInfoReader();
+
+        if(outputFilePath.endsWith("\\")) // no name given, just directory
+            outputFilePath = addCompressionExtension(fileInfoReader.getName(inputFilePath));
+        else
+            outputFilePath = addCompressionExtension(inputFilePath);
+        return outputFilePath;
+    }
+
     private String addCompressionExtension(String path)
     {
         path += ".JK";
         return path;
     }
-
 
     private void saveOriginalExtension(String originalFile)
     {
@@ -50,7 +82,6 @@ public class Encoder {
     }
     private void createTreeAndCodes(String inputPath)
     {
-        this.reader = new FileManager(inputPath,"r");
         countOccurrences();
         createHuffManTree();
         createCodes();
