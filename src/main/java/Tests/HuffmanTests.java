@@ -54,7 +54,7 @@ public class HuffmanTests {
 
             if(testPassed)
             {
-                testPassed = areFilesIdentical(testFile,fullDecompressedFileName );
+                testPassed = areFilesIdentical(testFile,fullDecompressedFileName);
                 if(testPassed)
                 {
                     System.out.println("Test passed!");
@@ -66,8 +66,6 @@ public class HuffmanTests {
                 else
                     break;
             }
-
-
 
             File outputFile = new File(fullCompressedFileName);
             outputFile.delete();

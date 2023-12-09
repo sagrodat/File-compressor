@@ -15,7 +15,7 @@ public class FileManager {
         }
         catch(IOException e)
         {
-            System.err.println("Error when creating reference to file!");
+            System.err.println("Error when opening file!");
         }
 
     }
@@ -96,11 +96,5 @@ public class FileManager {
             System.err.println("Error when closing file!");
         }
     }
-
     public RandomAccessFile getFileHandle(){return this.randomAccessFile;}
-
-
-
-
-
 }

@@ -1,1 +1,0 @@
-http://www.trytoprogram.com/cpp-examples/cplusplus-program-to-print-star-pyramid-patterns/ 

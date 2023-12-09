@@ -1,5 +1,6 @@
 package Compressor;
 
+import FileManagement.FileInfoReader;
 import FileManagement.FileManager;
 import Tree.Node;
 import Utility.Constants;
@@ -28,9 +29,13 @@ public class Decoder {
 
     private String addOriginalExtensionIfNotSpecified(String path)
     {
-        if(path.lastIndexOf(".") < path.lastIndexOf("\\"))
-            path += "." + originalFileExtension;
-        return path;
+        //if given extension matches the one of the original file dont do anything
+        // if no extension or given doesnt match then add extnesion
+        FileInfoReader fileInfoReader = new FileInfoReader();
+        if(fileInfoReader.getExtension(path) == null || !fileInfoReader.getExtension(path).equals(originalFileExtension))
+            return path + "." + originalFileExtension;
+        else
+            return path;
     }
 
     private void restoreOriginalExtension()

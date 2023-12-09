@@ -10,17 +10,10 @@ public class FileInfoReader {
     }
     public String getExtension(String fileName)
     {
-        int lastDotIndex = -1;
-        for(int i = fileName.length() - 1 ; i >= 0 ; i--)
-        {
-            if(fileName.charAt(i) == '.')
-            {
-                lastDotIndex = i;
-                break;
-            }
-        }
+        int lastDotIndex = fileName.lastIndexOf(".");
+        if(lastDotIndex == -1)
+            return null;
         String extension = new String();
-
         for(int i = lastDotIndex + 1; i < fileName.length(); i++)
             extension += fileName.charAt(i);
 
@@ -31,10 +24,7 @@ public class FileInfoReader {
     {
         return cutOutExtension(file.getName());
     }
-    public String getName(String fileName)
-    {
-        return cutOutExtension(fileName);
-    }
+    public String getName(String fileName) {return cutOutExtension(fileName);}
     private String cutOutExtension(String fileName)
     {
         String output = new String();

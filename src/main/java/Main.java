@@ -5,21 +5,29 @@ import FileManagement.FileManager;
 import Utility.Constants;
 
 import java.sql.SQLOutput;
+import java.util.Scanner;
 
 // to do
 //fix compressing files that have . in their name
 public class Main {
     public static void main(String[] args) {
-        String inputFilePath = "TestFiles\\x.cpp";
+        /*String inputFilePath = "TestFiles\\x.cpp";
         String outputFilePath = "TestFiles\\xout";
         String decodedInputFilePath = "TestFiles\\xin.cpp";
+*/
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Sciezka pliku wejsciowego : ");
+        String inputFilePath = scanner.nextLine();
+
+        System.out.print("Sciezka pliku wyjsciowego : ");
+        String outputFilePath = scanner.nextLine();
 
         Compressor compressor = new Compressor();
         compressor.performAction(inputFilePath,outputFilePath);
-        compressor.performAction(outputFilePath + "."+ Constants.customExtension,decodedInputFilePath);
 
 
-
+/*
         System.out.println("Codes before : ");
         compressor.getEncoder().printCodes();
         System.out.println("Codes after : ");
@@ -51,6 +59,6 @@ public class Main {
         while((tmp = compressed.read()) != -1)
         {
             System.out.print(tmp + " ");
-        }
+        }*/
     }
 }
