@@ -57,7 +57,7 @@ public class BitReader {
         }
         return byteValue;
     }
-    public boolean isReadingLastByte()
+    public boolean  isReadingLastByte()
     {
         return (reader.getFilePointerPosition() == reader.length());
     }

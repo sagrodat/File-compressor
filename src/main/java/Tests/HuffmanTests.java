@@ -1,48 +1,80 @@
 package Tests;
 
-import Compressor.Encoder;
-import Compressor.Decoder;
 import Compressor.Compressor;
 
 import FileManagement.FileInfoReader;
 import FileManagement.FileManager;
+import Utility.Constants;
+import Utility.Timer;
 import org.junit.Assert;
 import org.junit.Test;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class HuffmanTests {
-    private String [] testFiles = {"TestFiles\\draw.png","TestFiles\\test.txt","TestFiles\\romeo.txt"};
+    private ArrayList<String> testFilesPaths;
     Compressor compressor;
     public HuffmanTests()
     {
         this.compressor = new Compressor();
+        createListOfTestFiles();
+
+    }
+    private void createListOfTestFiles()
+    {
+        this.testFilesPaths = new ArrayList<>();
+        String testFilesPath = "TestFiles\\";
+        File directory = new File(testFilesPath);
+        if(!directory.isDirectory())
+            return;
+        File[] files = directory.listFiles();
+        for(File file : files)
+        {
+            testFilesPaths.add(file.getAbsolutePath());
+        }
     }
 
     @Test
     public void shouldCorrectlyCompressAndDecompressFiles() {
-        boolean testStatus = true;
+        boolean testPassed = true;
+        Timer timer = new Timer();
         FileInfoReader fileInfoReader = new FileInfoReader();
-
-        for(String testFile : testFiles)
+        for(String testFile : testFilesPaths)
         {
-            String outputFileName = fileInfoReader.getName(testFile) + "out." + fileInfoReader.getExtension(testFile);
-            compressor.compress(testFile,outputFileName);
-            String decompressedFileName = fileInfoReader.getName(testFile) + "decompressed." + fileInfoReader.getExtension(testFile);
-            compressor.decompress(outputFileName,decompressedFileName);
+            System.out.println("Testing file " + testFile);
+            timer.start();
+            String compressedFileName = fileInfoReader.getName(testFile);
+            compressor.compress(testFile,compressedFileName);
+            String fullCompressedFileName = compressedFileName + "." + Constants.customExtension;
 
-            if(testStatus)
-                testStatus = areFilesIdentical(testFile,decompressedFileName);
+            String decompressedFileName = fileInfoReader.getName(testFile) + "decompressed";
+            compressor.decompress(compressedFileName + "." + Constants.customExtension ,decompressedFileName);
+            String fullDecompressedFileName = decompressedFileName + "." + fileInfoReader.getExtension(testFile);
+
+            if(testPassed)
+            {
+                testPassed = areFilesIdentical(testFile,fullDecompressedFileName );
+                if(testPassed)
+                {
+                    System.out.println("Test passed!");
+                    timer.stop();
+                    timer.printMeasurement();
+                    timer.reset();
+                    System.out.println();
+                }
+                else
+                    break;
+            }
 
 
-            File outputFile = new File(outputFileName);
+
+            File outputFile = new File(fullCompressedFileName);
             outputFile.delete();
-            File decompressedFile = new File(decompressedFileName);
+            File decompressedFile = new File(fullDecompressedFileName);
             decompressedFile.delete();
         }
-        Assert.assertEquals(true,testStatus );
+        Assert.assertEquals(true,testPassed );
     }
 
     private boolean areFilesIdentical(String expectedFilePath, String actualFilePath)
@@ -51,7 +83,7 @@ public class HuffmanTests {
         FileManager actualFile = new FileManager(actualFilePath,"r");
         if(expectedFile.length() != actualFile.length())
         {
-            System.out.println(expectedFile.length() + " " +  actualFile.length());
+            System.out.println(actualFile.length() + " " + expectedFile.length());
             closeFiles(actualFile,expectedFile);
             return false;
         }

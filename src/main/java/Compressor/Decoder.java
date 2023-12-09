@@ -23,24 +23,42 @@ public class Decoder {
         this.bitReader = new BitReader(reader);
         restoreOriginalExtension();
         restoreOriginalTree();
-        restoreAndSaveContent(outputPath);
+        restoreAndSaveContent(addOriginalExtensionIfNotSpecified(outputPath));
     }
+
+    private String addOriginalExtensionIfNotSpecified(String path)
+    {
+        if(path.lastIndexOf(".") < path.lastIndexOf("\\"))
+            path += "." + originalFileExtension;
+        return path;
+    }
+
     private void restoreOriginalExtension()
     {
         String extension = new String();
         int tmp;
         while((tmp = reader.read()) != Constants.EndOfExtension)
         {
-            extension += tmp;
+            extension +=(char)tmp;
         }
         this.originalFileExtension = extension;
     }
 
 
+    private int getBitsToReadFromLastByte()
+    {
+        int val = bitReader.getNextBits(3);
+        if(val == 0)
+            return 8;
+        else
+            return val;
+    }
+
 
     private void restoreAndSaveContent(String outputPath) {
         this.writer = new FileManager(outputPath,"rw");
-        int bitsToReadFromLastByte = bitReader.getNextBits(3);
+        int bitsToReadFromLastByte = getBitsToReadFromLastByte();
+        //System.out.println("bitsTORead decodeing : " + bitsToReadFromLastByte);
         boolean skippedEmptyBits = false;
 
 
@@ -48,8 +66,9 @@ public class Decoder {
         Node tmp = root;
         while((bit = bitReader.getNextBit()) !=-1)
         {
-            if(bitReader.isReadingLastByte() && !skippedEmptyBits)
+            if(bitReader.isReadingLastByte() && !skippedEmptyBits && bitsToReadFromLastByte != 8)
             {
+                //System.out.println("Entered skipping bits");
                 bitReader.skipBits(7 - bitsToReadFromLastByte);
                 skippedEmptyBits = true;
                 continue;

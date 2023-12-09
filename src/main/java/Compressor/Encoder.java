@@ -22,7 +22,8 @@ public class Encoder {
     //WORKERS
     public void encodeContentAndSaveToFile(String inputPath, String outputPath) {
         createTreeAndCodes(inputPath);
-        this.writer = new FileManager(outputPath,"rw");
+
+        this.writer = new FileManager( addCompressionExtension(outputPath) ,"rw");
         this.bitSaver = new BitSaver(writer);
         saveOriginalExtension(inputPath);
         tree.createAndSaveTreeBinaryData(this.bitSaver);
@@ -30,6 +31,12 @@ public class Encoder {
         writer.close();
         reader.close();
     }
+    private String addCompressionExtension(String path)
+    {
+        path += ".JK";
+        return path;
+    }
+
 
     private void saveOriginalExtension(String originalFile)
     {
@@ -54,6 +61,7 @@ public class Encoder {
         this.bitSaver = tree.getSaveBuffer();
         reader.seek(0);
 
+        //System.out.println("bitsTORead encoding : " + countBitsToReadFromLastByte());
         bitSaver.addLeastSignificantBits(countBitsToReadFromLastByte(),3);
 
         int tmp;

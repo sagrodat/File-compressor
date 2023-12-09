@@ -1,5 +1,8 @@
 package Compressor;
 
+import FileManagement.FileInfoReader;
+import Utility.Constants;
+
 public class Compressor {
     private Encoder encoder;
     private Decoder decoder;
@@ -15,6 +18,18 @@ public class Compressor {
         if(this.decoder == null)
             this.decoder = new Decoder();
         decoder.decodeContentAndSaveToFile(inputFilePath,outputFilePath);
+    }
+
+    public void performAction(String inputFilePath, String outputFilePath) {
+        FileInfoReader fileInfoReader = new FileInfoReader();
+        if (fileInfoReader.getExtension(inputFilePath).equals(Constants.customExtension))
+        {
+            decompress(inputFilePath,outputFilePath);
+        }
+        else
+        {
+            compress(inputFilePath,outputFilePath);
+        }
     }
 
     public Encoder getEncoder(){return this.encoder;}
