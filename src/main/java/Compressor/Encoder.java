@@ -60,13 +60,13 @@ public class Encoder {
         if(outputFilePath.endsWith("\\")) // no name given, just directory
             outputFilePath = addCompressionExtension(fileInfoReader.getName(inputFilePath));
         else
-            outputFilePath = addCompressionExtension(inputFilePath);
+            outputFilePath = addCompressionExtension(outputFilePath);
         return outputFilePath;
     }
 
     private String addCompressionExtension(String path)
     {
-        path += ".JK";
+        path += Constants.customExtension;
         return path;
     }
 

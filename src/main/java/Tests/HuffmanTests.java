@@ -36,7 +36,7 @@ public class HuffmanTests {
     }
 
     @Test
-    public void shouldCorrectlyCompressAndDecompressFiles() {
+    public void shouldCorrectlyCompressAndDecompressTestFiles() {
         boolean testPassed = true;
         Timer timer = new Timer();
         FileInfoReader fileInfoReader = new FileInfoReader();

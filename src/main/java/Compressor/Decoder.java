@@ -25,16 +25,20 @@ public class Decoder {
         skipCompressionTag();
         restoreOriginalExtension();
         restoreOriginalTree();
-        restoreAndSaveContent(addOriginalExtensionIfNotSpecified(outputPath));
-
+        restoreAndSaveContent( addOriginalExtensionIfNotSpecified(  createOutputFileName(inputPath,outputPath   )   )  );
     }
+    private String createOutputFileName(String inputFilePath, String outputFilePath)
+    {
+        FileInfoReader fileInfoReader = new FileInfoReader();
 
+        if(outputFilePath.endsWith("\\")) // no name given, just directory
+            outputFilePath = fileInfoReader.getName(inputFilePath);
+        return outputFilePath;
+    }
     private void skipCompressionTag()
     {
         reader.seek(reader.getFilePointerPosition() + Constants.compressionTag.length());
     }
-
-
     private String addOriginalExtensionIfNotSpecified(String path)
     {
         FileInfoReader fileInfoReader = new FileInfoReader();
@@ -69,9 +73,7 @@ public class Decoder {
     private void restoreAndSaveContent(String outputPath) {
         this.writer = new FileManager(outputPath,"rw");
         int bitsToReadFromLastByte = getBitsToReadFromLastByte();
-        //System.out.println("bitsTORead decodeing : " + bitsToReadFromLastByte);
         boolean skippedEmptyBits = false;
-
 
         int bit;
         Node tmp = root;
@@ -79,11 +81,11 @@ public class Decoder {
         {
             if(bitReader.isReadingLastByte() && !skippedEmptyBits && bitsToReadFromLastByte != 8)
             {
-                //System.out.println("Entered skipping bits");
                 bitReader.skipBits(7 - bitsToReadFromLastByte);
                 skippedEmptyBits = true;
                 continue;
             }
+
             if(bit == 0 && tmp.getLeft() != null)
                 tmp = tmp.getLeft();
             else if(bit == 1 && tmp.getRight() != null)
@@ -95,8 +97,6 @@ public class Decoder {
                 tmp = root;
             }
         }
-
-
         reader.close();
         writer.close();
     }
@@ -146,8 +146,6 @@ public class Decoder {
         codeCreator.createCodes();
         this.codes = codeCreator.getCodes();
     }
-
-
 
     //PRINTERS
 
