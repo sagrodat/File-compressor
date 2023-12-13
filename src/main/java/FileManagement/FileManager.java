@@ -16,7 +16,7 @@ public class FileManager {
         }
         catch(IOException e)
         {
-            System.err.println("Error when opening file \"" + filePath + "\"! Make sure the file exists and that you have the rights to access the file.");
+            System.err.println("Error when opening file \"" + filePath + "\"! Make sure the file exists and that you have the rights to access the file." + e.getMessage());
             System.exit(-1);
         }
 
@@ -30,7 +30,7 @@ public class FileManager {
         }
         catch(IOException e)
         {
-            System.err.println("Error when writing to file \"" + filePath + "\"! Make sure you have the rights to write to the file.");
+            System.err.println("Error when writing to file \"" + filePath + "\"! Make sure you have the rights to write to the file." + e.getMessage());
             System.exit(-1);
         }
     }
@@ -44,7 +44,7 @@ public class FileManager {
         }
         catch(IOException e)
         {
-            System.err.println("Error when reading from file \"" + filePath + "\"! Make sure you have the rights to read from the file.");
+            System.err.println("Error when reading from file \"" + filePath + "\"! Make sure you have the rights to read from the file." + e.getMessage());
             System.exit(-1);
         }
         return value;
@@ -57,7 +57,7 @@ public class FileManager {
         }
         catch(IOException e)
         {
-            handleDefaultFileOperationsException();
+            handleDefaultFileOperationsException(e);
         }
     }
     public long length()
@@ -69,7 +69,7 @@ public class FileManager {
         }
         catch (IOException e)
         {
-            handleDefaultFileOperationsException();
+            handleDefaultFileOperationsException(e);
         }
         return length;
 
@@ -84,7 +84,7 @@ public class FileManager {
         }
         catch (IOException e)
         {
-            handleDefaultFileOperationsException();
+            handleDefaultFileOperationsException(e);
         }
         return position;
     }
@@ -97,13 +97,13 @@ public class FileManager {
         }
         catch (IOException e)
         {
-            handleDefaultFileOperationsException();
+            handleDefaultFileOperationsException(e);
         }
     }
 
-    private void handleDefaultFileOperationsException()
+    private void handleDefaultFileOperationsException(Exception e)
     {
-        System.err.println("Error when closing file \"" + filePath + "\"! Make sure you have the rights to perform operations on the file.");
+        System.err.println("Error when closing file \"" + filePath + "\"! Make sure you have the rights to perform operations on the file." + e.getMessage());
         System.exit(-1);
     }
 

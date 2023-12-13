@@ -32,7 +32,7 @@ public class Decoder {
         FileInfoReader fileInfoReader = new FileInfoReader();
 
         if(outputFilePath.endsWith("\\")) // no name given, just directory
-            outputFilePath = fileInfoReader.getName(inputFilePath);
+            outputFilePath = fileInfoReader.getFullPathWithoutExtension(inputFilePath);
         return outputFilePath;
     }
     private void skipCompressionTag()

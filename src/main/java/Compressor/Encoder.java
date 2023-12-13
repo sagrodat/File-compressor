@@ -6,8 +6,6 @@ import Tree.HuffTree;
 import Utility.Constants;
 import FileManagement.BitSaver;
 
-import java.io.File;
-
 public class Encoder {
 
     private FileManager reader;
@@ -25,7 +23,7 @@ public class Encoder {
     public void encodeContentAndSaveToFile(String inputPath, String outputPath) {
         this.reader = new FileManager(inputPath,"r");
         validateFile();
-        createTreeAndCodes(inputPath);
+        createTreeAndCodes();
         this.writer = new FileManager( createOutputFileName(inputPath, outputPath) ,"rw");
         this.bitSaver = new BitSaver(writer);
 
@@ -42,7 +40,7 @@ public class Encoder {
     {
         if(reader.length() == 0)
         {
-            System.err.println("Can't compress, input file is empty!");
+            System.err.println("Can't compress, file is empty!");
             System.exit(-1);
         }
     }
@@ -58,7 +56,7 @@ public class Encoder {
         FileInfoReader fileInfoReader = new FileInfoReader();
 
         if(outputFilePath.endsWith("\\")) // no name given, just directory
-            outputFilePath = addCompressionExtension(fileInfoReader.getName(inputFilePath));
+            outputFilePath = addCompressionExtension(fileInfoReader.getFullPathWithoutExtension(inputFilePath));
         else
             outputFilePath = addCompressionExtension(outputFilePath);
         return outputFilePath;
@@ -80,7 +78,7 @@ public class Encoder {
         }
         writer.write(Constants.EndOfExtension);
     }
-    private void createTreeAndCodes(String inputPath)
+    private void createTreeAndCodes()
     {
         countOccurrences();
         createHuffManTree();

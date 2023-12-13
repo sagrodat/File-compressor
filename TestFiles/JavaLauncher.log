@@ -1,0 +1,234 @@
+[2023/12/09 17:16:51.324, java.exe (PID: 980, TID: 11284), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/09 17:16:51.342, java.exe (PID: 980, TID: 11284), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/09 17:16:51.342, java.exe (PID: 980, TID: 11284), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/09 17:16:51.343, java.exe (PID: 980, TID: 11284), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/09 17:16:51.343, java.exe (PID: 980, TID: 11284), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/09 17:16:51.387, java.exe (PID: 980, TID: 11284), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/09 17:16:51.390, java.exe (PID: 980, TID: 11284), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/09 17:16:51.400, java.exe (PID: 980, TID: 11284), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan_jar) succeeded; PID=11480
+[2023/12/09 17:16:51.821, java.exe (PID: 980, TID: 11284), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=11480 terminated. Exit code=1
+[2023/12/09 17:17:09.527, java.exe (PID: 10232, TID: 4836), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/09 17:17:09.543, java.exe (PID: 10232, TID: 4836), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/09 17:17:09.544, java.exe (PID: 10232, TID: 4836), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/09 17:17:09.544, java.exe (PID: 10232, TID: 4836), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/09 17:17:09.544, java.exe (PID: 10232, TID: 4836), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/09 17:17:09.550, java.exe (PID: 10232, TID: 4836), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/09 17:17:09.553, java.exe (PID: 10232, TID: 4836), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/09 17:17:09.561, java.exe (PID: 10232, TID: 4836), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=6680
+[2023/12/09 17:17:09.571, java.exe (PID: 10232, TID: 4836), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=6680 terminated. Exit code=1
+[2023/12/09 17:17:29.010, java.exe (PID: 12736, TID: 7972), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/09 17:17:29.026, java.exe (PID: 12736, TID: 7972), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/09 17:17:29.027, java.exe (PID: 12736, TID: 7972), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/09 17:17:29.027, java.exe (PID: 12736, TID: 7972), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/09 17:17:29.027, java.exe (PID: 12736, TID: 7972), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/09 17:17:29.033, java.exe (PID: 12736, TID: 7972), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/09 17:17:29.035, java.exe (PID: 12736, TID: 7972), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/09 17:17:29.044, java.exe (PID: 12736, TID: 7972), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar .\\HuffMan.jar) succeeded; PID=4536
+[2023/12/09 17:17:29.054, java.exe (PID: 12736, TID: 7972), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=4536 terminated. Exit code=1
+[2023/12/09 17:17:50.169, java.exe (PID: 3112, TID: 8464), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/09 17:17:50.187, java.exe (PID: 3112, TID: 8464), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/09 17:17:50.187, java.exe (PID: 3112, TID: 8464), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/09 17:17:50.187, java.exe (PID: 3112, TID: 8464), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/09 17:17:50.188, java.exe (PID: 3112, TID: 8464), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/09 17:17:50.194, java.exe (PID: 3112, TID: 8464), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/09 17:17:50.196, java.exe (PID: 3112, TID: 8464), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/09 17:17:50.204, java.exe (PID: 3112, TID: 8464), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=1696
+[2023/12/09 17:17:56.050, java.exe (PID: 3112, TID: 8464), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=1696 terminated. Exit code=-1
+[2023/12/10 22:40:16.287, java.exe (PID: 5176, TID: 7476), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/10 22:40:16.303, java.exe (PID: 5176, TID: 7476), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/10 22:40:16.304, java.exe (PID: 5176, TID: 7476), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:40:16.306, java.exe (PID: 5176, TID: 7476), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:40:16.306, java.exe (PID: 5176, TID: 7476), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/10 22:40:16.349, java.exe (PID: 5176, TID: 7476), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/10 22:40:16.351, java.exe (PID: 5176, TID: 7476), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/10 22:40:16.366, java.exe (PID: 5176, TID: 7476), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=7140
+[2023/12/10 22:40:23.314, java.exe (PID: 5176, TID: 7476), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=7140 terminated. Exit code=-1
+[2023/12/10 22:40:54.105, java.exe (PID: 9084, TID: 5708), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/10 22:40:54.121, java.exe (PID: 9084, TID: 5708), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/10 22:40:54.121, java.exe (PID: 9084, TID: 5708), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:40:54.121, java.exe (PID: 9084, TID: 5708), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:40:54.121, java.exe (PID: 9084, TID: 5708), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/10 22:40:54.127, java.exe (PID: 9084, TID: 5708), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/10 22:40:54.129, java.exe (PID: 9084, TID: 5708), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/10 22:40:54.137, java.exe (PID: 9084, TID: 5708), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=5608
+[2023/12/10 22:41:05.064, java.exe (PID: 9084, TID: 5708), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=5608 terminated. Exit code=-1
+[2023/12/10 22:41:07.663, java.exe (PID: 7052, TID: 7308), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/10 22:41:07.679, java.exe (PID: 7052, TID: 7308), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/10 22:41:07.680, java.exe (PID: 7052, TID: 7308), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:41:07.680, java.exe (PID: 7052, TID: 7308), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:41:07.680, java.exe (PID: 7052, TID: 7308), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/10 22:41:07.686, java.exe (PID: 7052, TID: 7308), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/10 22:41:07.688, java.exe (PID: 7052, TID: 7308), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/10 22:41:07.696, java.exe (PID: 7052, TID: 7308), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=5868
+[2023/12/10 22:41:14.344, java.exe (PID: 7052, TID: 7308), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=5868 terminated. Exit code=-1
+[2023/12/10 22:41:32.553, java.exe (PID: 424, TID: 1036), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/10 22:41:32.568, java.exe (PID: 424, TID: 1036), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/10 22:41:32.569, java.exe (PID: 424, TID: 1036), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:41:32.569, java.exe (PID: 424, TID: 1036), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:41:32.569, java.exe (PID: 424, TID: 1036), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/10 22:41:32.575, java.exe (PID: 424, TID: 1036), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/10 22:41:32.577, java.exe (PID: 424, TID: 1036), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/10 22:41:32.586, java.exe (PID: 424, TID: 1036), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=6812
+[2023/12/10 22:41:43.458, java.exe (PID: 424, TID: 1036), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=6812 terminated. Exit code=0
+[2023/12/10 22:41:46.532, java.exe (PID: 9196, TID: 6044), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/10 22:41:46.546, java.exe (PID: 9196, TID: 6044), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/10 22:41:46.547, java.exe (PID: 9196, TID: 6044), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:41:46.547, java.exe (PID: 9196, TID: 6044), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:41:46.547, java.exe (PID: 9196, TID: 6044), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/10 22:41:46.553, java.exe (PID: 9196, TID: 6044), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/10 22:41:46.556, java.exe (PID: 9196, TID: 6044), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/10 22:41:46.563, java.exe (PID: 9196, TID: 6044), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=8152
+[2023/12/10 22:42:01.619, java.exe (PID: 9196, TID: 6044), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=8152 terminated. Exit code=0
+[2023/12/10 22:42:15.678, java.exe (PID: 8400, TID: 6612), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/10 22:42:15.695, java.exe (PID: 8400, TID: 6612), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/10 22:42:15.695, java.exe (PID: 8400, TID: 6612), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:42:15.696, java.exe (PID: 8400, TID: 6612), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:42:15.696, java.exe (PID: 8400, TID: 6612), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/10 22:42:15.702, java.exe (PID: 8400, TID: 6612), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/10 22:42:15.704, java.exe (PID: 8400, TID: 6612), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/10 22:42:15.713, java.exe (PID: 8400, TID: 6612), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=8556
+[2023/12/10 22:42:23.553, java.exe (PID: 8400, TID: 6612), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=8556 terminated. Exit code=0
+[2023/12/10 22:51:31.795, java.exe (PID: 8852, TID: 4088), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/10 22:51:31.812, java.exe (PID: 8852, TID: 4088), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/10 22:51:31.813, java.exe (PID: 8852, TID: 4088), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:51:31.813, java.exe (PID: 8852, TID: 4088), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:51:31.813, java.exe (PID: 8852, TID: 4088), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/10 22:51:31.819, java.exe (PID: 8852, TID: 4088), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/10 22:51:31.822, java.exe (PID: 8852, TID: 4088), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/10 22:51:31.830, java.exe (PID: 8852, TID: 4088), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=384
+[2023/12/10 22:51:43.263, java.exe (PID: 8852, TID: 4088), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=384 terminated. Exit code=0
+[2023/12/10 22:52:40.576, java.exe (PID: 248, TID: 5452), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/10 22:52:40.593, java.exe (PID: 248, TID: 5452), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/10 22:52:40.593, java.exe (PID: 248, TID: 5452), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:52:40.593, java.exe (PID: 248, TID: 5452), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:52:40.593, java.exe (PID: 248, TID: 5452), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/10 22:52:40.599, java.exe (PID: 248, TID: 5452), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/10 22:52:40.601, java.exe (PID: 248, TID: 5452), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/10 22:52:40.609, java.exe (PID: 248, TID: 5452), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=6812
+[2023/12/10 22:52:47.426, java.exe (PID: 248, TID: 5452), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=6812 terminated. Exit code=0
+[2023/12/10 22:52:57.351, java.exe (PID: 9028, TID: 8140), JavaEnvironment.cpp:502 (JavaEnvironment::detect)]
+	TRACE: Entering JavaEnvironment::detect
+[2023/12/10 22:52:57.367, java.exe (PID: 9028, TID: 8140), JavaEnvironment.cpp:519 (JavaEnvironment::detect)]
+	TRACE: Installed Java detected: version=; arch=64; productCode={75B0E1AE-DC20-5AC0-A358-61B0256DADBE}; type=1
+[2023/12/10 22:52:57.368, java.exe (PID: 9028, TID: 8140), JavaEnvironment.cpp:135 (`anonymous-namespace'::detectHomeDir)]
+	TRACE: Find home dir of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:52:57.368, java.exe (PID: 9028, TID: 8140), JavaEnvironment.cpp:302 (`anonymous-namespace'::detectFullVersion)]
+	TRACE: Detect full version of {75B0E1AE-DC20-5AC0-A358-61B0256DADBE} Java installation
+[2023/12/10 22:52:57.368, java.exe (PID: 9028, TID: 8140), JavaEnvironment.cpp:213 (`anonymous-namespace'::detectFullVersionFromMsi)]
+	TRACE: detectFullVersionFromMsi({75B0E1AE-DC20-5AC0-A358-61B0256DADBE})
+[2023/12/10 22:52:57.374, java.exe (PID: 9028, TID: 8140), JavaEnvironment.cpp:481 (`anonymous-namespace'::getInstalledJava)]
+	TRACE: InstalledJava(21.0.1+12|21.0.1+12|JDK|64bit|C:\Program Files\Java\jdk-21|{75B0E1AE-DC20-5AC0-A358-61B0256DADBE}|-10|)
+[2023/12/10 22:52:57.377, java.exe (PID: 9028, TID: 8140), JavaEnvironment.cpp:0 (JavaEnvironment::detect)]
+	TRACE: Exiting JavaEnvironment::detect (entered at JavaEnvironment.cpp:502)
+[2023/12/10 22:52:57.385, java.exe (PID: 9028, TID: 8140), Executor.cpp:602 (Executor2::startProcess)]
+	TRACE: CreateProcess(C:\Program Files\Java\jdk-21\bin\java.exe, "C:\\Program Files\\Java\\jdk-21\\bin\\java.exe" -jar HuffMan.jar) succeeded; PID=7384
+[2023/12/10 22:53:05.566, java.exe (PID: 9028, TID: 8140), Executor.cpp:563 (Executor2::execAndWait)]
+	TRACE: Process with PID=7384 terminated. Exit code=0

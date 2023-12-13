@@ -1,0 +1,36 @@
+[3784:0001][2023-12-12T18:20:17] Creating new ExperimentationService
+[3784:0001][2023-12-12T18:20:17] Telemetry property VS.ABExp.Flights : lazytoolboxinit;fwlargebuffer;refactoring;spmoretempsbtn1;asloff;keybindgoldbarext;asynccsproj;vsfricheditor;completionapi;typeimportcompletion:30562486;vsttkcf:30514304;4f604693:30775293;i4588376:30751670;fijh5155:30690136;8ig0d248:30783238;85ihc887:30842123;capi_t:30865183;vscp-gpt4-t:30877705;h3a5g130:30877474;chat_aa_t:30915623
+[3784:0001][2023-12-12T18:20:18] UserActivityMonitor started.
+[3784:0001][2023-12-12T18:20:18] Telemetry property VS.SetupEngine.ActivityId : cb99d0d1-20f3-4c22-a135-6b9ecca4996b
+[3784:0001][2023-12-12T18:20:18] Telemetry property VS.SetupEngine.IsChildProcess : False
+[3784:0001][2023-12-12T18:20:18] Telemetry property VS.SetupEngine.IsNoCancel : True
+[3784:0001][2023-12-12T18:20:18] BEGIN: Background Download
+[3784:0001][2023-12-12T18:20:18] Running pre-check verification.
+[3784:0001][2023-12-12T18:20:18] BEGIN: Check for updates
+[3784:000c][2023-12-12T18:20:18] Telemetry property VS.SetupEngine.ChannelUpdateDisabled : False
+[3784:0006][2023-12-12T18:20:19] Authentication Environment variable setting value: null
+[3784:0006][2023-12-12T18:20:19] Authenticate: True
+[3784:0016][2023-12-12T18:20:19] Download requested: https://download.visualstudio.microsoft.com/download/pr/63b5064f-af60-4cbe-96cd-a9dd9d41ee3d/311df5111c6641ac2b5ec9acd80b30038155ea9af072c694670ef7d504b94ff2/VisualStudio.17.Release.chman
+[3784:0017][2023-12-12T18:20:19] Attempting download 'https://download.visualstudio.microsoft.com/download/pr/63b5064f-af60-4cbe-96cd-a9dd9d41ee3d/311df5111c6641ac2b5ec9acd80b30038155ea9af072c694670ef7d504b94ff2/VisualStudio.17.Release.chman' using engine 'WebClient'
+[3784:0017][2023-12-12T18:20:19] Download of 'https://download.visualstudio.microsoft.com/download/pr/63b5064f-af60-4cbe-96cd-a9dd9d41ee3d/311df5111c6641ac2b5ec9acd80b30038155ea9af072c694670ef7d504b94ff2/VisualStudio.17.Release.chman' succeeded using engine 'WebClient'
+[3784:0017][2023-12-12T18:20:19] Channel 'https://aka.ms/vs/17/release/channel' was not modified. IfModifiedSince: 01.12.2023 03:51:21 +00:00, LastModifiedDate: 01.12.2023 04:51:21 +01:00
+[3784:0017][2023-12-12T18:20:19] Channel manifest for https://aka.ms/vs/17/release/channel is already up to date.
+[3784:0001][2023-12-12T18:20:19] The cache manifest and downloaded manifest had the same version for instance: 88f0698c. Did not compute update information.
+[3784:0001][2023-12-12T18:20:19] No restart manager available. Assuming no reboot required for instance state.
+[3784:0001][2023-12-12T18:20:19] END: Check for updates
+[3784:0001][2023-12-12T18:20:19] BEGIN: Launch child and wait
+[3784:0006][2023-12-12T18:20:19] Authenticode verification returned 0x00000000 for path: C:\Users\sagro\AppData\Local\Temp\VS\Setup\3b65be0a-98e9-4c4d-82b0-4d609c7ec059\vs_setup_bootstrapper.exe.
+[3784:0006][2023-12-12T18:20:20] Package signature verification returned Success for path: C:\Users\sagro\AppData\Local\Temp\VS\Setup\3b65be0a-98e9-4c4d-82b0-4d609c7ec059\vs_installer.opc
+[3784:0007][2023-12-12T18:20:20] Newer bootstrapper cached: C:\Users\sagro\AppData\Local\Temp\VS\Setup\3b65be0a-98e9-4c4d-82b0-4d609c7ec059\vs_setup_bootstrapper.exe, version: 3.8.2112.285739325
+[3784:0001][2023-12-12T18:20:22] Package signature verification returned Success for path: C:\Users\sagro\AppData\Local\Temp\VS\Setup\3b65be0a-98e9-4c4d-82b0-4d609c7ec059\vs_installer.opc
+[3784:0001][2023-12-12T18:20:23] Package signature verification returned Success for path: C:\Users\sagro\AppData\Local\Temp\VS\Setup\3b65be0a-98e9-4c4d-82b0-4d609c7ec059\vs_installer.opc
+[3784:0001][2023-12-12T18:20:23] Extracting 'C:\Users\sagro\AppData\Local\Temp\VS\Setup\3b65be0a-98e9-4c4d-82b0-4d609c7ec059\vs_installer.opc' to 'C:\Users\sagro\AppData\Local\Temp\d5kjc2r3.3rn'.
+[3784:0003][2023-12-12T18:20:23] Warning: Received progress when there is no current instance. Skipping updating user profile state.
+[3784:0006][2023-12-12T18:20:24] Warning: Received progress when there is no current instance. Skipping updating user profile state.
+[3784:0001][2023-12-12T18:20:24] Successfully extracted 'C:\Users\sagro\AppData\Local\Temp\d5kjc2r3.3rn'.
+[3784:0001][2023-12-12T18:20:24] Child process started: C:\Users\sagro\AppData\Local\Temp\d5kjc2r3.3rn\resources\app\ServiceHub\Services\Microsoft.VisualStudio.Setup.Service\BackgroundDownload.exe
+[3784:0001][2023-12-12T18:20:24] Waiting for setup process to complete...
+[3784:0006][2023-12-12T18:20:24] Warning: Received progress when there is no current instance. Skipping updating user profile state.
+[3784:0001][2023-12-12T18:21:28] Child process exited with code 0
+[3784:0001][2023-12-12T18:21:29] END: Launch child and wait
+[3784:0001][2023-12-12T18:21:29] END: Background Download

@@ -22,23 +22,23 @@ public class FileInfoReader {
         return "." + extension;
     }
 
-    public String getName(File file)
+    public String getFullPathWithoutExtension(File file)
     {
         return cutOutExtension(file.getName());
     }
-    public String getName(String fullFileName) {return cutOutExtension(fullFileName);}
-    private String cutOutExtension(String fullFileName)
+    public String getFullPathWithoutExtension(String fullFilePath) {return cutOutExtension(fullFilePath);}
+    private String cutOutExtension(String fullFilePath)
     {
-        if( fullFileName.contains(".") )
+        if( fullFilePath.contains(".") )
         {
             String output = new String();
-            for(int i = 0; i < fullFileName.lastIndexOf(".");  i++)
+            for(int i = 0; i < fullFilePath.lastIndexOf(".");  i++)
             {
-                output+=fullFileName.charAt(i);
+                output+=fullFilePath.charAt(i);
             }
             return output;
         }
-        else return fullFileName;
+        else return fullFilePath;
     }
 
     public boolean isCompressionTagPresent(String filePath)

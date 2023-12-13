@@ -14,12 +14,11 @@ import java.util.ArrayList;
 
 public class HuffmanTests {
     private ArrayList<String> testFilesPaths;
-    Compressor compressor;
+    private Compressor compressor;
     public HuffmanTests()
     {
         this.compressor = new Compressor();
         createListOfTestFiles();
-
     }
     private void createListOfTestFiles()
     {
@@ -37,44 +36,45 @@ public class HuffmanTests {
 
     @Test
     public void shouldCorrectlyCompressAndDecompressTestFiles() {
-        boolean testPassed = true;
+        for(int i = 0 ; i < testFilesPaths.size(); i++)
+        {
+            System.out.println("Testing file " + "(" + (i+1) + "/" + testFilesPaths.size() + ")" + " : " +  testFilesPaths.get(i)  );
+            Assert.assertTrue( compressedAndDecompressedSuccessfully(testFilesPaths.get(i)) );
+        }
+
+    }
+
+    private boolean compressedAndDecompressedSuccessfully(String filePath)
+    {
+
         Timer timer = new Timer();
         FileInfoReader fileInfoReader = new FileInfoReader();
-        for(String testFile : testFilesPaths)
-        {
-            System.out.println("Testing file " + testFile);
-            timer.start();
 
-            String compressedFileName = fileInfoReader.getName(testFile);
-            compressor.compress(testFile,compressedFileName);
-            String fullCompressedFileName = compressedFileName + fileInfoReader.getExtension(testFile)+ Constants.customExtension;
-            System.out.println(fullCompressedFileName);
 
-            String decompressedFileName = fileInfoReader.getName(testFile) + "decompressed";
-            compressor.decompress( fullCompressedFileName ,decompressedFileName);
-            String fullDecompressedFileName = decompressedFileName + fileInfoReader.getExtension(testFile);
+        timer.start();
 
-            if(testPassed)
-            {
-                testPassed = areFilesIdentical(testFile,fullDecompressedFileName);
-                if(testPassed)
-                {
-                    System.out.println("Test passed!");
-                    timer.stop();
-                    timer.printMeasurement();
-                    timer.reset();
-                    System.out.println();
-                }
-                else
-                    break;
-            }
+        String compressedFileName = fileInfoReader.getFullPathWithoutExtension(filePath);
+        compressor.compress(filePath,compressedFileName);
+        String compressedFileFullName = compressedFileName + Constants.customExtension;
 
-            File outputFile = new File(fullCompressedFileName);
-            outputFile.delete();
-            File decompressedFile = new File(fullDecompressedFileName);
-           decompressedFile.delete();
-        }
-        Assert.assertEquals(true,testPassed );
+        String decompressedFileName = fileInfoReader.getFullPathWithoutExtension(filePath) + "decompressed";
+        compressor.decompress( compressedFileFullName ,decompressedFileName);
+        String decompressedFileFullName = decompressedFileName + fileInfoReader.getExtension(filePath);
+
+        boolean result = areFilesIdentical(filePath,decompressedFileFullName);
+
+        File outputFile = new File(compressedFileFullName);
+        outputFile.delete();
+        File decompressedFile = new File(decompressedFileFullName);
+        decompressedFile.delete();
+
+        System.out.println("Test passed!");
+        timer.stop();
+        timer.printMeasurement();
+        timer.reset();
+        System.out.println();
+
+        return result;
     }
 
     private boolean areFilesIdentical(String expectedFilePath, String actualFilePath)
