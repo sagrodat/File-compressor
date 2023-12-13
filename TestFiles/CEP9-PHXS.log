@@ -1,3 +1,0 @@
-﻿2023-12-11 14:14:28:123 : INFO  PlugPlug version : 9.4.0.146
-2023-12-11 14:14:28:142 : INFO  LogLevel : 1
-2023-12-11 14:14:28:165 : ERROR AsyncEvalRawScript: Failed to evaluate script for scripting engine <com.adobe.ccx.start_Engine_Id> with error code 38

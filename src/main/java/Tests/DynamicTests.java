@@ -12,19 +12,23 @@ import java.io.File;
 import java.util.ArrayList;
 
 
-public class HuffmanTests {
+public class DynamicTests {
     private ArrayList<String> testFilesPaths;
     private Compressor compressor;
-    public HuffmanTests()
+    public DynamicTests()
     {
         this.compressor = new Compressor();
         createListOfTestFiles();
     }
-    private void createListOfTestFiles()
-    {
+    private void createListOfTestFiles() {
         this.testFilesPaths = new ArrayList<>();
         String testFilesPath = "TestFiles\\";
         File directory = new File(testFilesPath);
+        if (!directory.exists())
+        {
+            System.err.println("Create a \"TestFiles\" directory in the project directory and put the files you wish to test indside.");
+            System.exit(-1);
+        }
         if(!directory.isDirectory())
             return;
         File[] files = directory.listFiles();
