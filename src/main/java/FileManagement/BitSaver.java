@@ -1,7 +1,5 @@
 package FileManagement;
 
-import java.util.ArrayList;
-
 public class BitSaver {
 
     private FileManager writer;
@@ -53,7 +51,6 @@ public class BitSaver {
     private boolean isBufferFull() {   return bitsUsed == 8; }
     private void saveValAndResetBuffer()
     {
-        //binaryData.add(val);
         writer.write(val);
         bitsUsed = 0;
         val = 0;
@@ -73,8 +70,17 @@ public class BitSaver {
             bitsUsed++;
         }
     }
-    public int getBitsUsed(){return this.bitsUsed;}
 
-    public void closeWriter(){writer.close();}
+    public void shiftValueToMostSignificantBits()
+    {
+        for(int i = 0 ;i < getNumberOfUnusedBits() ; i++)
+        {
+            val = val << 1;
+        }
+    }
 
+    public int getNumberOfUsedBits(){return this.bitsUsed;}
+    public int getNumberOfUnusedBits(){return 8 - this.bitsUsed;}
+
+    public int getVal(){return this.val;}
 }

@@ -3,8 +3,10 @@ package Compressor;
 import FileManagement.FileInfoReader;
 import FileManagement.FileManager;
 import Tree.HuffTree;
-import Utility.Constants;
+import GlobalVariables.Constants;
 import FileManagement.BitSaver;
+
+import java.io.File;
 
 public class Encoder {
 
@@ -55,8 +57,9 @@ public class Encoder {
     {
         FileInfoReader fileInfoReader = new FileInfoReader();
 
-        if(outputFilePath.endsWith("\\")) // no name given, just directory
-            outputFilePath = addCompressionExtension(fileInfoReader.getFullPathWithoutExtension(inputFilePath));
+        File outputSpot = new File(outputFilePath);
+        if(outputSpot.isDirectory())
+            outputFilePath = outputFilePath + "\\" + addCompressionExtension(fileInfoReader.getFileNameWithoutExtension(inputFilePath));
         else
             outputFilePath = addCompressionExtension(outputFilePath);
         return outputFilePath;
@@ -72,10 +75,7 @@ public class Encoder {
     {
         FileInfoReader fileInfoReader = new FileInfoReader();
         String extension = fileInfoReader.getExtension(originalFile);
-        for(int i = 0; i < extension.length(); i++)
-        {
-            writer.write(extension.charAt(i));
-        }
+        writer.write(extension);
         writer.write(Constants.EndOfExtension);
     }
     private void createTreeAndCodes()
@@ -84,44 +84,41 @@ public class Encoder {
         createHuffManTree();
         createCodes();
     }
+    private void coverOneNodeTreeEdgeCase()
+    {
+        for(int i = 0 ; i < reader.length() ; i++)
+        {
+            bitSaver.addZero();
+        }
+        bitSaver.addOne();
+        bitSaver.shiftValueToMostSignificantBits();
+        bitSaver.saveLeftoverValue();
+    }
 
     private void createAndSaveContentBinaryData()
     {
-        this.bitSaver = tree.getSaveBuffer();
         reader.seek(0);
 
-        //System.out.println("bitsTORead encoding : " + countBitsToReadFromLastByte());
+        if(tree.getRoot().isLeaf())
+        {
+           coverOneNodeTreeEdgeCase();
+           return;
+        }
+
         bitSaver.addLeastSignificantBits(countBitsToReadFromLastByte(),3);
 
         int tmp;
-
         while ((tmp = this.reader.read()) != -1)
             bitSaver.addCode(codes[tmp]);
 
         bitSaver.saveLeftoverValue();
-
     }
-
-
 
     private int countBitsToReadFromLastByte()
     {
-        int totalCodeLen = 0;
-        int bitsToReadFromLastByteInformationLength = 3; //bits (0-7)
-        for(int i = 0 ; i < occurrences.length ; i++)
-        {
-            if(codes[i] == null)
-                continue;
-
-            totalCodeLen += occurrences[i] * codes[i].length();
-        }
-        int bitsToReadFromLastByte = (totalCodeLen + bitsToReadFromLastByteInformationLength + this.bitSaver.getBitsUsed())%8;
-        return bitsToReadFromLastByte;
+        int bitsToReadFromLastByteInformationLength = 3; //(bits)
+        return (calculateTreeCost() + bitsToReadFromLastByteInformationLength + this.bitSaver.getNumberOfUsedBits())%8;
     }
-
-
-
-
     private void createHuffManTree() {
         this.tree = new HuffTree(this.occurrences);
     }
@@ -141,6 +138,20 @@ public class Encoder {
         codeCreator.createCodes();
         this.codes = codeCreator.getCodes();
     }
+
+    public int calculateTreeCost()
+    {
+        int treeCost = 0;
+        for(int i = 0 ; i < Constants.MAX_UNIQUE ; i++)
+        {
+            if(codes[i] == null)
+                continue;
+
+            treeCost += occurrences[i] * codes[i].length();
+        }
+        return treeCost;
+    }
+
 
     //PRINTERS
     public void printOccurrences()

@@ -4,7 +4,7 @@ import Compressor.Compressor;
 
 import FileManagement.FileInfoReader;
 import FileManagement.FileManager;
-import Utility.Constants;
+import GlobalVariables.Constants;
 import Utility.Timer;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,10 +12,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 
-public class DynamicTests {
+public class HuffmanTests {
     private ArrayList<String> testFilesPaths;
     private Compressor compressor;
-    public DynamicTests()
+    public HuffmanTests()
     {
         this.compressor = new Compressor();
         createListOfTestFiles();
@@ -26,7 +26,7 @@ public class DynamicTests {
         File directory = new File(testFilesPath);
         if (!directory.exists())
         {
-            System.err.println("Create a \"TestFiles\" directory in the project directory and put the files you wish to test indside.");
+            System.err.println("Create a \"TestFiles\" directory in the project directory and put the files you wish to test inside.");
             System.exit(-1);
         }
         if(!directory.isDirectory())
@@ -42,8 +42,19 @@ public class DynamicTests {
     public void shouldCorrectlyCompressAndDecompressTestFiles() {
         for(int i = 0 ; i < testFilesPaths.size(); i++)
         {
+            File directory = new File(testFilesPaths.get(i)); // skip directories check only files in that folder
+            if(directory.isDirectory())
+                continue;
+
             System.out.println("Testing file " + "(" + (i+1) + "/" + testFilesPaths.size() + ")" + " : " +  testFilesPaths.get(i)  );
-            Assert.assertTrue( compressedAndDecompressedSuccessfully(testFilesPaths.get(i)) );
+            boolean success = compressedAndDecompressedSuccessfully(testFilesPaths.get(i));
+            if(success)
+                System.out.println("Test passed!");
+            else
+                System.out.println("Test failed!");
+            System.out.println();
+
+            Assert.assertTrue( success );
         }
 
     }
@@ -72,11 +83,9 @@ public class DynamicTests {
         File decompressedFile = new File(decompressedFileFullName);
         decompressedFile.delete();
 
-        System.out.println("Test passed!");
         timer.stop();
         timer.printMeasurement();
         timer.reset();
-        System.out.println();
 
         return result;
     }
@@ -87,7 +96,7 @@ public class DynamicTests {
         FileManager actualFile = new FileManager(actualFilePath,"r");
         if(expectedFile.length() != actualFile.length())
         {
-            System.out.println(actualFile.length() + " " + expectedFile.length());
+            System.out.println("Difference in files' length, Actual : " + actualFile.length() + " Expected : " + expectedFile.length());
             closeFiles(actualFile,expectedFile);
             return false;
         }
@@ -98,7 +107,7 @@ public class DynamicTests {
             int expected = expectedFile.read();
             if(actual != expected)
             {
-                System.out.println(actual + " " + expected);
+                System.out.println("Difference in files' content, Actual : " + actual + " Expected : " + expected);
                 closeFiles(actualFile,expectedFile);
                 return false;
             }

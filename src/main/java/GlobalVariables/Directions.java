@@ -1,4 +1,4 @@
-package Utility;
+package GlobalVariables;
 
 public class Directions {
     public static final int LEFT = 0;

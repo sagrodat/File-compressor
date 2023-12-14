@@ -1,7 +1,7 @@
 package Compressor;
 
 import FileManagement.FileInfoReader;
-import Utility.Constants;
+import GlobalVariables.Constants;
 
 public class Compressor {
     private Encoder encoder;

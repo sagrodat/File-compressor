@@ -8,7 +8,7 @@ public class BitReader {
     public BitReader(FileManager reader)
     {
         this.reader = reader;
-        this.bitsUsed = 8; // to not load a value when instantiating but to load a value when adequate method called
+        this.bitsUsed = 8; // to avoid loading a value upon instantiating but to load a value when adequate method called
     }
     //WORKERS
     private boolean areAllBitsUsed(){return this.bitsUsed == 8;}

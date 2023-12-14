@@ -1,64 +1,41 @@
 import Compressor.Compressor;
-import Compressor.Decoder;
-import Compressor.Encoder;
-import FileManagement.FileManager;
-import Utility.Constants;
+import GlobalVariables.Constants;
+import GlobalVariables.GlobalClassInstances;
+import GlobalVariables.Options;
+import Utility.OptionChecker;
 
-import java.sql.SQLOutput;
-import java.util.Scanner;
-
-// to do
-//fix compressing files that have . in their name
 public class Main {
     public static void main(String[] args) {
-        /*String inputFilePath = "TestFiles\\x.cpp";
-        String outputFilePath = "TestFiles\\xout";
-        String decodedInputFilePath = "TestFiles\\xin.cpp";
-*/
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Input filepath : ");
-        String inputFilePath = scanner.nextLine();
-
-        System.out.print("Output filepath : ");
-        String outputFilePath = scanner.nextLine();
-
-        Compressor compressor = new Compressor();
-        compressor.performAction(inputFilePath,outputFilePath);
-
-
-/*
-        System.out.println("Codes before : ");
-        compressor.getEncoder().printCodes();
-        System.out.println("Codes after : ");
-        compressor.getDecoder().printCodes();
-        System.out.println();
-
-        FileManager before = new FileManager(inputFilePath,"r");
-        FileManager after = new FileManager(decodedInputFilePath ,"r");
-        FileManager compressed = new FileManager(outputFilePath + "."+ Constants.customExtension, "r");
-        compressed.seek(compressed.length() - 2);
-
-        before.seek(before.length() - 2);
-        after.seek(after.length() - 2);
-
-        System.out.print("Before : ");
-        int tmp;
-        while((tmp = before.read()) != -1)
-        {
-            System.out.print(tmp + " ");
-        }
-        System.out.println();
-        System.out.print("after : ");
-        while((tmp = after.read()) != -1)
-        {
-            System.out.print(tmp + " ");
-        }
-        System.out.println();
-        System.out.print("compressed : ");
-        while((tmp = compressed.read()) != -1)
-        {
-            System.out.print(tmp + " ");
-        }*/
+        Main main = new Main();
+        if(!main.inspectArgs(args))
+            return;
+        main.processFiles(args);
+        main.onFinish();
     }
+
+    public boolean inspectArgs(String [] args)
+    {
+        if(args.length == 0 || args.length == 1)
+        {
+            System.out.println(Constants.helpInfo);
+            return false;
+        }
+        OptionChecker optionChecker = new OptionChecker();
+        optionChecker.checkForOptions(args);
+        return true;
+    }
+    public void processFiles(String [] args)
+    {
+        Compressor compressor = new Compressor();
+        compressor.performAction(args[0],args[1]);
+    }
+    public void onFinish()
+    {
+        if(Options.isTimerToggled())
+        {
+            GlobalClassInstances.getInstance().getGlobalTimer().printMeasurement();
+            GlobalClassInstances.getInstance().getGlobalTimer().stopAndReset();
+        }
+    }
+
 }

@@ -1,7 +1,5 @@
 package Tree;
 
-import Tree.Node;
-
 public class MinHeap {
 
     private int heapSize;
@@ -78,7 +76,6 @@ public class MinHeap {
         swap(0,heapSize-1);
         Node output = nodes[heapSize-1];
 
-        //testowe
         nodes[heapSize-1] = null;
 
         heapSize--;

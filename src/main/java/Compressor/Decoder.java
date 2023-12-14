@@ -3,9 +3,11 @@ package Compressor;
 import FileManagement.FileInfoReader;
 import FileManagement.FileManager;
 import Tree.Node;
-import Utility.Constants;
-import Utility.Directions;
+import GlobalVariables.Constants;
+import GlobalVariables.Directions;
 import FileManagement.BitReader;
+
+import java.io.File;
 
 public class Decoder {
 
@@ -25,14 +27,15 @@ public class Decoder {
         skipCompressionTag();
         restoreOriginalExtension();
         restoreOriginalTree();
-        restoreAndSaveContent( addOriginalExtensionIfNotSpecified(  createOutputFileName(inputPath,outputPath   )   )  );
+        restoreAndSaveContent( addOriginalExtensionIfNotSpecified   (  createOutputFileName(inputPath,outputPath   )   )  );
     }
     private String createOutputFileName(String inputFilePath, String outputFilePath)
     {
         FileInfoReader fileInfoReader = new FileInfoReader();
 
-        if(outputFilePath.endsWith("\\")) // no name given, just directory
-            outputFilePath = fileInfoReader.getFullPathWithoutExtension(inputFilePath);
+        File outputSpot = new File(outputFilePath);
+        if(outputSpot.isDirectory())
+            outputFilePath = outputFilePath + "\\" + fileInfoReader.getFileNameWithoutExtension(inputFilePath);
         return outputFilePath;
     }
     private void skipCompressionTag()
@@ -72,11 +75,17 @@ public class Decoder {
 
     private void restoreAndSaveContent(String outputPath) {
         this.writer = new FileManager(outputPath,"rw");
+        Node tmp = root;
+        if(root.isLeaf())
+        {
+            coverOneNodeTreeEdgeCase();
+            return;
+        }
+
+        int bit;
         int bitsToReadFromLastByte = getBitsToReadFromLastByte();
         boolean skippedEmptyBits = false;
 
-        int bit;
-        Node tmp = root;
         while((bit = bitReader.getNextBit()) !=-1)
         {
             if(bitReader.isReadingLastByte() && !skippedEmptyBits && bitsToReadFromLastByte != 8)
@@ -96,6 +105,17 @@ public class Decoder {
                 writer.write(tmp.getLetter());
                 tmp = root;
             }
+        }
+        reader.close();
+        writer.close();
+    }
+
+    private void coverOneNodeTreeEdgeCase()
+    {
+        int bit;
+        while((bit = bitReader.getNextBit()) != 1)
+        {
+            writer.write(root.getLetter());
         }
         reader.close();
         writer.close();
@@ -164,18 +184,6 @@ public class Decoder {
         }
     }
 
-    public void printInputFileAsTreeInfo()
-    {
-        BitReader buf = new BitReader(this.reader);
-        int tmp;
-        while((tmp = buf.getNextBit()) != -1)
-        {
-            System.out.print(tmp);
-            if(tmp == 1)
-                System.out.print((char)buf.getNextByte());
-
-        }
-    }
 
     public void printCodes()
     {

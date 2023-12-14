@@ -1,9 +1,7 @@
 package Tree;
 
 import FileManagement.BitSaver;
-
-import static Utility.Constants.MAX_UNIQUE;
-
+import GlobalVariables.Constants;
 
 public class HuffTree {
     private Node root;
@@ -19,13 +17,11 @@ public class HuffTree {
     public HuffTree(int [] occurrences)
     {
         this.occurrences = occurrences;
-        this.nodes = new Node[MAX_UNIQUE];
+        this.nodes = new Node[Constants.MAX_UNIQUE];
         createLeafNodes();
         this.heap = new MinHeap(this.nodes, this.numberOfNodes);
         createOtherNodes();
     }
-
-
 
     //WORKERS
     public void createAndSaveTreeBinaryData(BitSaver bitSaver) {
@@ -36,7 +32,7 @@ public class HuffTree {
     private void traverseTreeToCreateTreeBinaryData(Node node) {
         if(node == null)
             return;
-        if(node.getLetter() == -1)
+        if(!node.isLeaf())
         {
             bitSaver.addZero();
         }
