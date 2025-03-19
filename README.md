@@ -5,7 +5,7 @@ The project is a file compressor and decompressor. It allows the user to decreas
 In order to use the program, launch the java jar file in "out/artifacts/JK_jar" without arguments or -h in order to print help information.
 For basic usage launch with arguments : *[input filepath] [output filepath]*
 
-# Implementation
+## Implementation
 The compression is achieved using **Huffman's** coding algorithm. The huffman's tree is created with a **priority queue** implemented on a **min-heap**. 
 The whole project is written using **object-oriented** programming according to the language's practices.
 
